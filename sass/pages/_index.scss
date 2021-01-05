@@ -1,0 +1,56 @@
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 70%;
+    @include laptop {
+        flex-direction: row;
+    }
+    color: $color-primary;
+    .dynamic_display {
+        display: none;
+    }
+    img {
+        width: 50%;
+        width: 224px;
+        height: 52px;
+    }
+    nav {
+        font-size: 14px;
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                margin: 5px;
+                border-style: solid;
+                border-width: 0.5px;
+                border-radius: 11px;
+                border-color: $color-tertiary;
+                a {
+                    padding: 2px;
+                    color: $color-primary;
+                }
+            }
+            :hover {
+                border-radius: 11px;
+                background-color: $color-primary;
+                color: white;
+            }
+        }
+    }
+}
+main {
+    h1 {
+        color: $color-primary;
+    }
+    .title {
+        font-size: 14px;
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        @include tablet {
+            font-size: 32px;
+            top: -5px;
+        }
+    }
+}
