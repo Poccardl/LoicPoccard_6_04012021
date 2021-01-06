@@ -3,7 +3,6 @@ FilterPhotographers("all")
 
 // DOM Elements
 const portraitNavigation = document.querySelector(".portrait");
-//TODO: querySelectorALL maintenant //
 const artNavigation = document.querySelector(".art");
 const fashionNavigation = document.querySelector(".fashion");
 const architectureNavigation = document.querySelector(".architecture");
@@ -24,7 +23,6 @@ animalsNavigation.addEventListener("click", FilterPhotographers_animals);
 eventsNavigation.addEventListener("click", FilterPhotographers_events);
 
 
-
 //TODO: add commentaire
 function fetchData(tag) {
     fetch("./data/FishEyeDataFR.json")
@@ -39,7 +37,7 @@ function fetchData(tag) {
     });
 }
 
-//function Factory() {}
+//TODO: function Factory() {}
 
 //TODO: add commentaire
 function RemovePhotographers() {
@@ -47,10 +45,9 @@ function RemovePhotographers() {
         const photographersSection = document.querySelectorAll(".card")
         for (var element in photographersSection) {
             photographersSection[element].remove()
-            console.log("REMOVE OK")
         }
     } catch (error){
-        console.log("REMOVE NOT OK")
+        console.error("RemovePhotographers : failed")
     }
 }
 
@@ -90,7 +87,7 @@ function CreatePhotographers(data_photographers) {
     '<p>' + data_photographers["tagline"] + '</p>' +
     '<p>' + data_photographers["price"] + '€/jour</p>' +
     '<nav role="navigation" aria-label="photographer categories">' +
-    '<ul classe="navigation_tags">';
+    '<ul>';
     // ajoute les tags pour la navigation
     var photographers_tags_html = ""
     for (var element in data_photographers["tags"]) {
@@ -146,6 +143,7 @@ function FilterPhotographers_events() {
 }
 // MAIN FUNCTION
 function FilterPhotographers(tag) {
+    //TODO: add types
     console.log("tag::", tag)
     RemovePhotographers()
     fetchData(tag)
