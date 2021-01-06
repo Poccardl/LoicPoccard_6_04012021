@@ -1,0 +1,22 @@
+#photographer_section {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    @include laptop {
+        flex-direction: row;
+    }
+    .card {
+        text-align: center;
+        .photographers_pp {
+            width: 200px;
+            height: 200px;
+            border-radius: 90%;
+        }
+        h2 {
+            color: $color-secondary;
+        }
+        h4 {
+            color: $color-primary;
+        }
+    }
+}
