@@ -11,15 +11,14 @@ nav {
             border-width: 0.5px;
             border-radius: 11px;
             border-color: $color-tertiary;
-            a {
-                padding: 2px;
-                color: $color-primary;
+            cursor: pointer;
+            padding: 2px;
+            color: $color-primary;
+            &:hover {
+                border-radius: 11px;
+                background-color: $color-primary;
+                color: white;
             }
-        }
-        :hover {
-            border-radius: 11px;
-            background-color: $color-primary;
-            color: white;
         }
     }
 }
