@@ -1,43 +1,46 @@
 //__--__\\
-FilterPhotographers("all")
+Factory("all", "photographers")
 
 // DOM Elements
-const portraitNavigation = document.querySelector(".portrait");
-const artNavigation = document.querySelector(".art");
-const fashionNavigation = document.querySelector(".fashion");
-const architectureNavigation = document.querySelector(".architecture");
-const travelNavigation = document.querySelector(".travel");
-const sportNavigation = document.querySelector(".sport");
-const animalsNavigation = document.querySelector(".animals");
-const eventsNavigation = document.querySelector(".events");
+const portraitNavigation = document.querySelector(".portrait")
+const artNavigation = document.querySelector(".art")
+const fashionNavigation = document.querySelector(".fashion")
+const architectureNavigation = document.querySelector(".architecture")
+const travelNavigation = document.querySelector(".travel")
+const sportNavigation = document.querySelector(".sport")
+const animalsNavigation = document.querySelector(".animals")
+const eventsNavigation = document.querySelector(".events")
 
 
 // Events
-portraitNavigation.addEventListener("click", FilterPhotographers_portrait);
-artNavigation.addEventListener("click", FilterPhotographers_art);
-fashionNavigation.addEventListener("click", FilterPhotographers_fashion);
-architectureNavigation.addEventListener("click", FilterPhotographers_architecture);
-travelNavigation.addEventListener("click", FilterPhotographers_travel);
-sportNavigation.addEventListener("click", FilterPhotographers_sport);
-animalsNavigation.addEventListener("click", FilterPhotographers_animals);
-eventsNavigation.addEventListener("click", FilterPhotographers_events);
+portraitNavigation.addEventListener("click", FilterPhotographers_portrait)
+artNavigation.addEventListener("click", FilterPhotographers_art)
+fashionNavigation.addEventListener("click", FilterPhotographers_fashion)
+architectureNavigation.addEventListener("click", FilterPhotographers_architecture)
+travelNavigation.addEventListener("click", FilterPhotographers_travel)
+sportNavigation.addEventListener("click", FilterPhotographers_sport)
+animalsNavigation.addEventListener("click", FilterPhotographers_animals)
+eventsNavigation.addEventListener("click", FilterPhotographers_events)
 
 
 //TODO: add commentaire
-function fetchData(tag) {
+function Factory(tag, type) {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
-        return resp.json();
+        return resp.json()
     })
     .then(function(data) {
-        console.log(data);
-        //TODO: A modifier plus tard !
-        PhotographersFactory(data["photographers"], tag);
-        MediaFactory(data["media"]);
-    });
+        console.log(data)
+        console.log(type)
+        if (type == "photographers") {
+            RemovePhotographers()
+            PhotographersFactory(data["photographers"], tag)
+        }
+        else if (type == "media") {
+            MediaFactory(data["media"])
+        }
+    })
 }
-
-//TODO: function Factory() {}
 
 //TODO: add commentaire
 function RemovePhotographers() {
@@ -70,7 +73,7 @@ function PhotographersFactory(data, tag) {
         else {
             continue
         }
-        CreatePhotographers(data_photographers);
+        CreatePhotographers(data_photographers)
     }
 }
 
@@ -87,7 +90,7 @@ function CreatePhotographers(data_photographers) {
     '<p>' + data_photographers["tagline"] + '</p>' +
     '<p>' + data_photographers["price"] + '€/jour</p>' +
     '<nav role="navigation" aria-label="photographer categories">' +
-    '<ul>';
+    '<ul>'
     // ajoute les tags pour la navigation
     var photographers_tags_html = ""
     for (var element in data_photographers["tags"]) {
@@ -95,7 +98,7 @@ function CreatePhotographers(data_photographers) {
             photographers_tags_html = photographers_tags_html +
             '<li class="' + data_photographers["tags"][element] + '" >#' +
             data_photographers["tags"][element] +
-            '</li>';
+            '</li>'
         }
     }
     photographers_card_html = photographers_card_html +
@@ -103,52 +106,37 @@ function CreatePhotographers(data_photographers) {
     '</ul>' +
     '</nav>' +
     '</div>' +
-    '</div>';
+    '</div>'
 
     // ajoute les cartes des différents photographes dans le code HTML
     photographersSection.insertAdjacentHTML("afterbegin", photographers_card_html)
 }
 
 function FilterPhotographers_portrait() {
-    var tag = "portrait"
-    FilterPhotographers(tag)
+    Factory("portrait", "photographers")
 }
 function FilterPhotographers_art() {
-    var tag = "art"
-    FilterPhotographers(tag)
+    Factory("art", "photographers")
 }
 function FilterPhotographers_fashion() {
-    var tag = "fashion"
-    FilterPhotographers(tag)
+    Factory("fashion", "photographers")
 }
 function FilterPhotographers_architecture() {
-    var tag = "architecture"
-    FilterPhotographers(tag)
+    Factory("architecture", "photographers")
 }
 function FilterPhotographers_travel() {
-    var tag = "travel"
-    FilterPhotographers(tag)
+    Factory("travel", "photographers")
 }
 function FilterPhotographers_sport() {
-    var tag = "sport"
-    FilterPhotographers(tag)
+    Factory("sport", "photographers")
 }
 function FilterPhotographers_animals() {
-    var tag = "animals"
-    FilterPhotographers(tag)
+    Factory("animals", "photographers")
 }
 function FilterPhotographers_events() {
-    var tag = "events"
-    FilterPhotographers(tag)
-}
-// MAIN FUNCTION
-function FilterPhotographers(tag) {
-    //TODO: add types
-    console.log("tag::", tag)
-    RemovePhotographers()
-    fetchData(tag)
+    Factory("events", "photographers")
 }
 
 function MediaFactory(data) {
-    console.log("DataMedia :", data);
+    console.log("DataMedia :", data)
 }
