@@ -6,6 +6,10 @@
         flex-direction: row;
     }
     .card {
+        margin: 20px;
+        @include laptop {
+            width: 30%;
+        }
         text-align: center;
         .photographers_pp {
             width: 200px;
