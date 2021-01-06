@@ -1,5 +1,5 @@
 //__--__\\
-Factory("all", "photographers")
+FetchData("all")
 
 // DOM Elements
 const portraitNavigation = document.querySelector(".portrait")
@@ -10,7 +10,6 @@ const travelNavigation = document.querySelector(".travel")
 const sportNavigation = document.querySelector(".sport")
 const animalsNavigation = document.querySelector(".animals")
 const eventsNavigation = document.querySelector(".events")
-
 
 // Events
 portraitNavigation.addEventListener("click", FilterPhotographers_portrait)
@@ -24,34 +23,16 @@ eventsNavigation.addEventListener("click", FilterPhotographers_events)
 
 
 //TODO: add commentaire
-function Factory(tag, type) {
+function FetchData(tag) {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
         return resp.json()
     })
     .then(function(data) {
-        console.log(data)
-        console.log(type)
-        if (type == "photographers") {
-            RemovePhotographers()
-            PhotographersFactory(data["photographers"], tag)
-        }
-        else if (type == "media") {
-            MediaFactory(data["media"])
-        }
+        console.log("photographers Data ->", data["photographers"])
+        RemovePhotographers()
+        PhotographersFactory(data["photographers"], tag)
     })
-}
-
-//TODO: add commentaire
-function RemovePhotographers() {
-    try {
-        const photographersSection = document.querySelectorAll(".card")
-        for (var element in photographersSection) {
-            photographersSection[element].remove()
-        }
-    } catch (error){
-        console.error("RemovePhotographers : failed")
-    }
 }
 
 //TODO: add commentaire
@@ -73,17 +54,17 @@ function PhotographersFactory(data, tag) {
         else {
             continue
         }
-        CreatePhotographers(data_photographers)
+        AddPhotographers(data_photographers)
     }
 }
 
 //TODO: add commentaire
-function CreatePhotographers(data_photographers) {
+function AddPhotographers(data_photographers) {
     // sélectionne la section #photographer_section
     const photographersSection = document.getElementById("photographer_section")
 
     let photographers_card_html = '<div class="card">' +
-    '<a href="..."><img src="data/Photographers ID Photos/' + data_photographers["portrait"] + '" alt="" class="photographers_pp"></a>' +
+    '<a href="photographers-page.html"><img src="data/Photographers ID Photos/' + data_photographers["portrait"] + '" alt="" class="photographers_pp"></a>' +
     '<h2>' + data_photographers["name"] + '</h2>' +
     '<div class="content">' +
     '<h4>' + data_photographers["city"] + ', ' + data_photographers["country"] + '</h4>' +
@@ -111,32 +92,40 @@ function CreatePhotographers(data_photographers) {
     // ajoute les cartes des différents photographes dans le code HTML
     photographersSection.insertAdjacentHTML("afterbegin", photographers_card_html)
 }
+//TODO: add commentaire
+function RemovePhotographers() {
+    try {
+        const photographersSection = document.querySelectorAll(".card")
+        for (var element in photographersSection) {
+            photographersSection[element].remove()
+        }
+    } catch (error){
+        console.error("RemovePhotographers : failed")
+    }
+}
+
 
 function FilterPhotographers_portrait() {
-    Factory("portrait", "photographers")
+    FetchData("portrait")
 }
 function FilterPhotographers_art() {
-    Factory("art", "photographers")
+    FetchData("art")
 }
 function FilterPhotographers_fashion() {
-    Factory("fashion", "photographers")
+    FetchData("fashion")
 }
 function FilterPhotographers_architecture() {
-    Factory("architecture", "photographers")
+    FetchData("architecture", "photographers")
 }
 function FilterPhotographers_travel() {
-    Factory("travel", "photographers")
+    FetchData("travel")
 }
 function FilterPhotographers_sport() {
-    Factory("sport", "photographers")
+    FetchData("sport")
 }
 function FilterPhotographers_animals() {
-    Factory("animals", "photographers")
+    FetchData("animals")
 }
 function FilterPhotographers_events() {
-    Factory("events", "photographers")
-}
-
-function MediaFactory(data) {
-    console.log("DataMedia :", data)
+    FetchData("events")
 }
