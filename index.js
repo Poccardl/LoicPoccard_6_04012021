@@ -1,9 +1,9 @@
 //__--__\\
 FetchEvents()
-FetchData("all")
+FetchPhotographersData("all")
 
 //TODO: add commentaire
-function FetchData(tag) {
+function FetchPhotographersData(tag) {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
         return resp.json()
@@ -27,6 +27,8 @@ function FetchEvents() {
     const sportNavigation = document.querySelectorAll(".sport")
     const animalsNavigation = document.querySelectorAll(".animals")
     const eventsNavigation = document.querySelectorAll(".events")
+    const photographersLink = document.querySelectorAll(".photographers_link")
+
     // Events
     portailNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_portrait));
     artNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_art));
@@ -36,12 +38,17 @@ function FetchEvents() {
     sportNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_sport));
     animalsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_animals));
     eventsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_events));
+
+    // TODO: add commentaire
+    photographersLink.forEach((link) => link.addEventListener("click", function () {
+        console.log("link", typeof link.id)
+        GetPhotographersID(link.id)
+    }, false))
 }
 
 //TODO: add commentaire
 function PhotographersFactory(data, tag) {
     for (var element in data) {
-        console.log("TAGS", data[element].tags)
         if (data[element].tags.includes(tag)) {
             var data_photographers = {
                 name: data[element].name,
@@ -67,7 +74,7 @@ function AddPhotographers(data_photographers) {
     const photographersSection = document.getElementById("photographer_section")
 
     let photographers_card_html = '<div class="card">' +
-    '<a href="photographers-page.html"><img src="data/Photographers ID Photos/' + data_photographers["portrait"] + '" alt="" class="photographers_pp"></a>' +
+    '<a class="photographers_link" id="' + data_photographers["id"] + '" href="photographers-page.html"><img src="data/Photographers ID Photos/' + data_photographers["portrait"] + '" alt="" class="photographers_pp"></a>' +
     '<h2>' + data_photographers["name"] + '</h2>' +
     '<div class="content">' +
     '<h4>' + data_photographers["city"] + ', ' + data_photographers["country"] + '</h4>' +
@@ -109,26 +116,26 @@ function RemovePhotographers() {
 
 
 function FilterPhotographers_portrait() {
-    FetchData("portrait")
+    FetchPhotographersData("portrait")
 }
 function FilterPhotographers_art() {
-    FetchData("art")
+    FetchPhotographersData("art")
 }
 function FilterPhotographers_fashion() {
-    FetchData("fashion")
+    FetchPhotographersData("fashion")
 }
 function FilterPhotographers_architecture() {
-    FetchData("architecture", "photographers")
+    FetchPhotographersData("architecture", "photographers")
 }
 function FilterPhotographers_travel() {
-    FetchData("travel")
+    FetchPhotographersData("travel")
 }
 function FilterPhotographers_sport() {
-    FetchData("sport")
+    FetchPhotographersData("sport")
 }
 function FilterPhotographers_animals() {
-    FetchData("animals")
+    FetchPhotographersData("animals")
 }
 function FilterPhotographers_events() {
-    FetchData("events")
+    FetchPhotographersData("events")
 }
