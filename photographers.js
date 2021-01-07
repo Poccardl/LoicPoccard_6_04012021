@@ -11,3 +11,5 @@ function FetchData() {
         console.log("media Data ->", data["media"])
     })
 }
+
+//TODO: Afficher les valeurs qui correspondent au photographe

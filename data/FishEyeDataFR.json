@@ -15,7 +15,7 @@
       "id": 930,
       "city": "Paris",
       "country": "France",
-      "tags": ["sports", "architecture", "all"],
+      "tags": ["sport", "architecture", "all"],
       "tagline": "Capturer des compositions complexes",
       "price": 250,
       "portrait": "EllieRoseWilkens.jpg"

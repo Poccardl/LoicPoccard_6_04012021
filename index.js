@@ -1,26 +1,6 @@
 //__--__\\
+FetchEvents()
 FetchData("all")
-
-// DOM Elements
-const portraitNavigation = document.querySelector(".portrait")
-const artNavigation = document.querySelector(".art")
-const fashionNavigation = document.querySelector(".fashion")
-const architectureNavigation = document.querySelector(".architecture")
-const travelNavigation = document.querySelector(".travel")
-const sportNavigation = document.querySelector(".sport")
-const animalsNavigation = document.querySelector(".animals")
-const eventsNavigation = document.querySelector(".events")
-
-// Events
-portraitNavigation.addEventListener("click", FilterPhotographers_portrait)
-artNavigation.addEventListener("click", FilterPhotographers_art)
-fashionNavigation.addEventListener("click", FilterPhotographers_fashion)
-architectureNavigation.addEventListener("click", FilterPhotographers_architecture)
-travelNavigation.addEventListener("click", FilterPhotographers_travel)
-sportNavigation.addEventListener("click", FilterPhotographers_sport)
-animalsNavigation.addEventListener("click", FilterPhotographers_animals)
-eventsNavigation.addEventListener("click", FilterPhotographers_events)
-
 
 //TODO: add commentaire
 function FetchData(tag) {
@@ -32,7 +12,30 @@ function FetchData(tag) {
         console.log("photographers Data ->", data["photographers"])
         RemovePhotographers()
         PhotographersFactory(data["photographers"], tag)
+        FetchEvents()
     })
+}
+
+//TODO: add commentaire
+function FetchEvents() {
+    // DOM Elements
+    const portailNavigation = document.querySelectorAll(".portrait")
+    const artNavigation = document.querySelectorAll(".art")
+    const fashionNavigation = document.querySelectorAll(".fashion")
+    const architectureNavigation = document.querySelectorAll(".architecture")
+    const travelNavigation = document.querySelectorAll(".travel")
+    const sportNavigation = document.querySelectorAll(".sport")
+    const animalsNavigation = document.querySelectorAll(".animals")
+    const eventsNavigation = document.querySelectorAll(".events")
+    // Events
+    portailNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_portrait));
+    artNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_art));
+    fashionNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_fashion));
+    architectureNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_architecture));
+    travelNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_travel));
+    sportNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_sport));
+    animalsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_animals));
+    eventsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_events));
 }
 
 //TODO: add commentaire
