@@ -5,16 +5,17 @@ function FetchID() {
     const photographer_id = regex_id.exec(document.URL)[0]
     return photographer_id
 }
-FetchMediaData()
+
+FetchData()
 
 //TODO: add commentaire
-function FetchMediaData() {
+function FetchData() {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
         return resp.json()
     })
     .then(function(data) {
-        //console.log("media Data ->", data["media"])
+        PhotographerInfosFactory(data["photographers"])
         MediasFactory(data["media"])
     })
 }
@@ -22,6 +23,26 @@ function FetchMediaData() {
 function FetchEvents() {
     // DOM Elements
     // Events
+}
+
+//TODO: add commentaire
+function PhotographerInfosFactory(data) {
+    const photographer_id = FetchID()
+    for (var element in data) {
+        if (data[element]["id"] == photographer_id) {
+            var data_photographer = {
+                name: data[element]["name"],
+                portrait: data[element]["portrait"],
+                city: data[element]["city"],
+                country: data[element]["country"],
+                tags: data[element]["tags"],
+                tagline: data[element]["tagline"],
+            }
+            AddPhotographerInfos(data_photographer)
+        } else {
+            continue
+        }
+    }
 }
 
 //TODO: add commentaire
@@ -44,47 +65,46 @@ function MediasFactory(data) {
         } else {
             continue
         }
-        AddMediasCards(data_medias)
+        AddMedias(data_medias)
     }
 
 }
 
 //TODO: add commentaire
-function AddPhotographerSection(){
-    /*
-    <div class="photographer_infos">
-        <div>
-            <h1>Lodddîc POHD</h1>
-            <p>Rouen, France</p>
-            <p>Voir le beau dans la vie</p>
-        </div>
-        <div>
-            <img src="/data/Photographers ID Photos/EllieRoseWilkens.jpg" alt="">
-        </div>
-    </div>
-    <nav role="navigation" aria-label="photographer categories">
-        <ul>
-            <li class="travel">#Travel</li>
-            <li class="sport">#Sport</li>
-            <li class="animals">#Animals</li>
-        </ul>
-    </nav>
-    */
+function AddPhotographerInfos(data_photographer){
+   console.log("data_photographer[image]", data_photographer["image"])
+    const photographerInfosSection = document.getElementById("photographer_infos_section")
+    let photographer_infos_html = '<div class="photographer_infos">' +
+    '<div>' +
+    '<h1>' + data_photographer["name"] + ' </h1>' +
+    '<p>' + data_photographer["city"] + ',' + data_photographer["country"] + '</p>' +
+    '<p>' + data_photographer["tagline"] + '</p>' +
+    '</div>' +
+    '<div>' +
+    '<img src="/data/Photographers ID Photos/' + data_photographer["portrait"] + '" alt="">' +
+    '</div>' +
+    '</div>' +
+    '<nav role="navigation" aria-label="photographer categories">' +
+    '<ul>'
+    var photographer_tags_html = ""
+    for (var element in data_photographer["tags"]) {
+        photographer_tags_html = photographer_tags_html +
+        '<li class="' + data_photographer["tags"][element] + '">#' +
+        data_photographer["tags"][element] +
+        '</li>'
+    }
+    photographer_infos_html =  photographer_infos_html +
+    photographer_tags_html +
+    '</ul>' +
+    '</nav>'
+    // ajoute les infos du photographe dans le code HTML
+    photographerInfosSection.insertAdjacentHTML("afterbegin", photographer_infos_html)
 }
 
 //TODO: add commentaire
-function AddMediasCards(data_medias) {
+function AddMedias(data_medias) {
     const mediasSection = document.getElementById("medias_section")
-    console.log("DOM :", data_medias)
-    /*
-    <div class="card">
-        <a href=""><img src="data/Mimi/Event_PintoWedding.jpg" alt=""></a>
-        <div class="content">
-            <p>Solitude</p>
-            <p>70€  12<i class="fas fa-heart"></i></p>
-        </div>
-    </div>
-    */
+    //console.log("DOM :", data_medias)
    let name = String
    if (data_medias["image"]) {
     name = data_medias["image"]
@@ -98,6 +118,6 @@ function AddMediasCards(data_medias) {
     '<p>' + data_medias["price"] + '€' + data_medias["likes"] + '<i class="fas fa-heart"></i></p>' +
     '</div>' +
     '</div>'
-    //console.log(medias_card_html)
+    //TODO: add commentaire
     mediasSection.insertAdjacentHTML("afterbegin", medias_card_html)
 }

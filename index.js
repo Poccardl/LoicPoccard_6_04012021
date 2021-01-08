@@ -79,7 +79,7 @@ function AddPhotographersCards(data_photographers) {
     for (var element in data_photographers["tags"]) {
         if (data_photographers["tags"][element] != "all") {
             photographers_tags_html = photographers_tags_html +
-            '<li class="' + data_photographers["tags"][element] + '" >#' +
+            '<li class="' + data_photographers["tags"][element] + '">#' +
             data_photographers["tags"][element] +
             '</li>'
         }
