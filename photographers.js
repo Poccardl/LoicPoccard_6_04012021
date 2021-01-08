@@ -96,7 +96,8 @@ function AddPhotographerInfos(data_photographer){
     photographer_infos_html =  photographer_infos_html +
     photographer_tags_html +
     '</ul>' +
-    '</nav>'
+    '</nav>' +
+    ''
     // ajoute les infos du photographe dans le code HTML
     photographerInfosSection.insertAdjacentHTML("afterbegin", photographer_infos_html)
 }

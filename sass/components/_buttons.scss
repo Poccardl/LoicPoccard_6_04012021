@@ -1,0 +1,17 @@
+button {
+    position: fixed;
+    bottom: 20px;
+    left: calc(50% - 62.97px);
+    padding: 5px 20px 5px 20px;
+    color: white;
+    background-color: $color-primary;
+    border: none;
+    border-radius: 5px;
+    @include laptop {
+        position: absolute;
+        top: 10%;
+        bottom: auto;
+        left: 30%;
+        padding: 20px;
+    }
+}
