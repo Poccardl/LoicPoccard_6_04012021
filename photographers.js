@@ -26,7 +26,6 @@ function FetchEvents() {
 
 //TODO: add commentaire
 function MediasFactory(data) {
-    //TODO: call FetchID
     const photographer_id = FetchID()
     console.log("photographer_id AFTER FETCH", photographer_id)
     for (var element in data) {
@@ -44,12 +43,47 @@ function MediasFactory(data) {
         } else {
             continue
         }
-        AddMedias(data_medias)
+        AddMediasCards(data_medias)
     }
 
 }
 
 //TODO: add commentaire
-function AddMedias(data_medias) {
-    //console.log("DOM :", data_medias)
+function AddPhotographerSection(){
+    /*
+    <div class="photographer_infos">
+        <div>
+            <h1>Lodddîc POHD</h1>
+            <p>Rouen, France</p>
+            <p>Voir le beau dans la vie</p>
+        </div>
+        <div>
+            <img src="/data/Photographers ID Photos/EllieRoseWilkens.jpg" alt="">
+        </div>
+    </div>
+    <nav role="navigation" aria-label="photographer categories">
+        <ul>
+            <li class="travel">#Travel</li>
+            <li class="sport">#Sport</li>
+            <li class="animals">#Animals</li>
+        </ul>
+    </nav>
+    */
+}
+
+//TODO: add commentaire
+function AddMediasCards(data_medias) {
+    console.log("DOM :", data_medias)
+    /*
+    <div class="card">
+        <a href=""><img src="data/Mimi/Event_PintoWedding.jpg" alt=""></a>
+        <div class="content">
+            <p>Solitude</p>
+            <p>70€  12<i class="fas fa-heart"></i></p>
+        </div>
+    </div>
+    */
+    let medias_card_html = '' +
+    ''
+    console.log(medias_card_html)
 }

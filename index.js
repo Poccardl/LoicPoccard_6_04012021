@@ -56,14 +56,14 @@ function PhotographersFactory(data, tag) {
         else {
             continue
         }
-        AddPhotographers(data_photographers)
+        AddPhotographersCards(data_photographers)
     }
 }
 
 //TODO: add commentaire
-function AddPhotographers(data_photographers) {
+function AddPhotographersCards(data_photographers) {
     // sélectionne la section #photographer_section
-    const photographersSection = document.getElementById("photographer_section")
+    const photographersSection = document.getElementById("photographer_section") // TODO: à un autre endroit dans le code ??
 
     let photographers_card_html = '<div class="card">' +
     '<a class="photographers_link" href="photographers-page.html?id=' + data_photographers["id"] + '"><img src="data/Photographers ID Photos/' + data_photographers["portrait"] + '" alt="" class="photographers_pp"></a>' +
