@@ -1,30 +1,36 @@
+//TODO: add commentaire
+function FetchID() {
+    // Récupère l'id du photographe à l'aide d'une expression régulière
+    const regex_id = RegExp(/\d{0,3}$/)
+    const photographer_id = regex_id.exec(document.URL)[0]
+    return photographer_id
+}
+FetchMediaData()
 
 //TODO: add commentaire
-function FetchMediaData(photographer_id) {
+function FetchMediaData() {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
         return resp.json()
     })
     .then(function(data) {
-        console.log("media Data ->", data["media"])
-        MediasFactory(data["media"], photographer_id)
+        //console.log("media Data ->", data["media"])
+        MediasFactory(data["media"])
     })
 }
 
-// Récupère l'id du photographe à afficher sur la page
-function GetPhotographersID(photographer_id) {
-    FetchMediaData(photographer_id)
+function FetchEvents() {
+    // DOM Elements
+    // Events
 }
 
 //TODO: add commentaire
-function MediasFactory(data, photographer_id) {
-    console.log("data", data, "en fonction de :", photographer_id)
-    // Récupère les médias liés à l'id du photographe (photographer_id)
+function MediasFactory(data) {
+    //TODO: call FetchID
+    const photographer_id = FetchID()
+    console.log("photographer_id AFTER FETCH", photographer_id)
     for (var element in data) {
-        //console.log(data[element])
-        //console.log(data[element]["photographerId"])
         if (data[element]["photographerId"] == photographer_id) {
-            console.log(photographer_id, "::", data[element])
             var data_medias = {
                 id: data[element]["id"],
                 photographerId: data[element]["photographerId"],
@@ -38,8 +44,6 @@ function MediasFactory(data, photographer_id) {
         } else {
             continue
         }
-        console.log("data-medias :\n", data_medias)
-        //call de la function qui ajoute les cards htlm
         AddMedias(data_medias)
     }
 
@@ -47,5 +51,5 @@ function MediasFactory(data, photographer_id) {
 
 //TODO: add commentaire
 function AddMedias(data_medias) {
-    console.log("DOM :", data_medias)
+    //console.log("DOM :", data_medias)
 }
