@@ -35,6 +35,7 @@ function MediasFactory(data) {
                 photographerId: data[element]["photographerId"],
                 image: data[element]["image"],
                 video: data[element]["video"],
+                description: data[element]["description"],
                 tag: data[element]["tag"],
                 likes: data[element]["likes"],
                 date: data[element]["date"],
@@ -73,6 +74,7 @@ function AddPhotographerSection(){
 
 //TODO: add commentaire
 function AddMediasCards(data_medias) {
+    const mediasSection = document.getElementById("medias_section")
     console.log("DOM :", data_medias)
     /*
     <div class="card">
@@ -83,7 +85,19 @@ function AddMediasCards(data_medias) {
         </div>
     </div>
     */
-    let medias_card_html = '' +
-    ''
-    console.log(medias_card_html)
+   let name = String
+   if (data_medias["image"]) {
+    name = data_medias["image"]
+   } else {
+    name = data_medias["video"]
+   }
+    let medias_card_html = '<div class="card">' +
+    '<a href=""><img src="data/media_' + data_medias["photographerId"] + '/' + name + '" alt=""></a>' +
+    '<div class="content">' +
+    '<p>' + data_medias["description"] + '</p>' +
+    '<p>' + data_medias["price"] + '€' + data_medias["likes"] + '<i class="fas fa-heart"></i></p>' +
+    '</div>' +
+    '</div>'
+    //console.log(medias_card_html)
+    mediasSection.insertAdjacentHTML("afterbegin", medias_card_html)
 }
