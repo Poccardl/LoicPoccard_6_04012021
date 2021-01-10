@@ -38,3 +38,17 @@
         }
     }
 }
+.photographer_infos_recap {
+    display: none;
+    @include laptop {
+        position: fixed;
+        bottom: 0px;
+        right: 50px;
+        border-radius: 5px 5px 0px 0px;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 20px 5px 20px;
+        width: 200px;
+        background-color: $color-secondary;
+    }
+}

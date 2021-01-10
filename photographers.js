@@ -28,27 +28,33 @@ function FetchEvents() {
 //TODO: add commentaire
 function PhotographerInfosFactory(data) {
     const photographer_id = FetchID()
+    const type = "price"
     for (var element in data) {
         if (data[element]["id"] == photographer_id) {
             var data_photographer = {
                 name: data[element]["name"],
-                portrait: data[element]["portrait"],
                 city: data[element]["city"],
                 country: data[element]["country"],
                 tags: data[element]["tags"],
                 tagline: data[element]["tagline"],
+                price: data[element]["price"],
+                portrait: data[element]["portrait"],
             }
             AddPhotographerInfos(data_photographer)
         } else {
             continue
         }
     }
+    //TODO: add commentaire
+    AddPhotographerInfosRecap(type, data_photographer["price"])
 }
 
 //TODO: add commentaire
 function MediasFactory(data) {
     const photographer_id = FetchID()
     console.log("photographer_id AFTER FETCH", photographer_id)
+    const type = "likes"
+    let likes = 0
     for (var element in data) {
         if (data[element]["photographerId"] == photographer_id) {
             var data_medias = {
@@ -62,12 +68,14 @@ function MediasFactory(data) {
                 date: data[element]["date"],
                 price: data[element]["price"],
             }
+            likes += data[element]["likes"]
         } else {
             continue
         }
         AddMedias(data_medias)
     }
-
+    //TODO: add commentaire
+    AddPhotographerInfosRecap(type, likes)
 }
 
 //TODO: add commentaire
@@ -121,4 +129,17 @@ function AddMedias(data_medias) {
     '</div>'
     //TODO: add commentaire
     mediasSection.insertAdjacentHTML("afterbegin", medias_card_html)
+}
+
+//TODO: add commentaire
+function AddPhotographerInfosRecap(type, data) {
+    const infosRecap = document.querySelector(".photographer_infos_recap")
+    let html = ""
+   if (type == "likes") {
+    html = '<p>' + data + '<i class="fas fa-heart"></i></p>'
+   }
+   else if (type == "price") {
+    html = '<p>' + data + '€ / jour</p>'
+   }
+   infosRecap.insertAdjacentHTML("afterbegin", html)
 }
