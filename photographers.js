@@ -8,17 +8,22 @@ function FetchID() {
 
 //TODO: rework code structure
 FetchEvents()
-FetchData("popularité")
+FetchData("popularité", "all")
 
 //TODO: add commentaire
-function FetchData(sort_option) {
+function FetchData(sort_option, data_option) {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
         return resp.json()
     })
     .then(function(data) {
-        PhotographerInfosFactory(data["photographers"])
-        MediasFactory(data["media"], sort_option)
+        if (data_option == "all") {
+            PhotographerInfosFactory(data["photographers"])
+            MediasFactory(data["media"], sort_option)
+        }
+        else if (data_option == "media") {
+            MediasFactory(data["media"], sort_option)
+        }
     })
 }
 
@@ -28,10 +33,35 @@ function FetchEvents() {
     // Events
     sortMedias.addEventListener("click", function () {
         console.log("sortMedias.value ::", sortMedias.value)
-        //TODO: call resetMedia()
-        FetchData(sortMedias.value)
+        //TODO: add commentaire
+        RemoveMedias()
+        RemoveLikes()
+        FetchData(sortMedias.value, "media")
     })
 }
+
+function RemoveMedias() {
+    try {
+        const mediasSection = document.querySelectorAll(".card")
+        console.log("mediasSection", mediasSection)
+        for (var element in mediasSection) {
+            console.log("element", mediasSection[element])
+            mediasSection[element].remove()
+        }
+    } catch {
+        //
+    }
+}
+
+function RemoveLikes() {
+    try {
+        const likesInfos = document.getElementById("likes")
+        likesInfos.remove()
+    } catch {
+        //
+    }
+}
+
 
 //TODO: add commentaire
 function PhotographerInfosFactory(data) {
@@ -108,18 +138,21 @@ function sortMedias(medias_list, sort_option) {
             return dateA-dateB
         })
     }
-    if (sort_option == "description") {
+    if (sort_option == "titre") {
         console.log(sort_option)
         medias_list.sort(function(a, b) {
             var nameA = a.description.toLowerCase()
             var nameB = b.description.toLowerCase()
+            console.log(nameA, nameB)
             if (nameA < nameB) {
                 return -1
             }
             if (nameA > nameB) {
                 return 1
             }
-            return 0
+            else {
+                return 0
+            }
         })
     }
     //console.log("after sort", medias_list)
@@ -162,6 +195,7 @@ function AddPhotographerInfos(data_photographer){
 function AddMedias(data_medias) {
     const mediasSection = document.getElementById("medias_section")
     console.log("DOM :", data_medias)
+
     for (var element in data_medias) {
         let name = String
     if (data_medias[element]["image"]) {
@@ -186,7 +220,7 @@ function AddPhotographerInfosRecap(type, data) {
     const infosRecap = document.querySelector(".photographer_infos_recap")
     let html = ""
    if (type == "likes") {
-    html = '<p>' + data + '<i class="fas fa-heart"></i></p>'
+    html = '<p id="likes">' + data + '<i class="fas fa-heart"></i></p>'
    }
    else if (type == "price") {
     html = '<p>' + data + '€ / jour</p>'

@@ -5,27 +5,6 @@
     @include laptop {
         flex-direction: row;
     }
-    .sort_media {
-        display: none;
-        @include laptop {
-            display: block;
-            width: 100%;
-            margin: 20px;
-            select {
-                padding: 15px 25px 15px 25px;
-                border-radius: 5px;
-                background-color: $color-primary;
-                color: white;
-                border: 0px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                -ms-appearance: none;
-                -o-appearance: none;
-                appearance: none;
-            }
-        }
-
-    }
     .card {
         margin: 20px;
         text-align: center;
