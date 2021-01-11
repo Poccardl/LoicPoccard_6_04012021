@@ -6,23 +6,31 @@ function FetchID() {
     return photographer_id
 }
 
-FetchData()
+//TODO: rework code structure
+FetchEvents()
+FetchData("popularité")
 
 //TODO: add commentaire
-function FetchData() {
+function FetchData(sort_option) {
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
         return resp.json()
     })
     .then(function(data) {
         PhotographerInfosFactory(data["photographers"])
-        MediasFactory(data["media"])
+        MediasFactory(data["media"], sort_option)
     })
 }
 
 function FetchEvents() {
     // DOM Elements
+    const sortMedias = document.getElementById("sort_medias")
     // Events
+    sortMedias.addEventListener("click", function () {
+        console.log("sortMedias.value ::", sortMedias.value)
+        //TODO: call resetMedia()
+        FetchData(sortMedias.value)
+    })
 }
 
 //TODO: add commentaire
@@ -50,11 +58,13 @@ function PhotographerInfosFactory(data) {
 }
 
 //TODO: add commentaire
-function MediasFactory(data) {
+function MediasFactory(data, sort_option) {
+    console.log("sort_option ::", sort_option)
     const photographer_id = FetchID()
     console.log("photographer_id AFTER FETCH", photographer_id)
     const type = "likes"
     let likes = 0
+    let medias_list = []
     for (var element in data) {
         if (data[element]["photographerId"] == photographer_id) {
             var data_medias = {
@@ -72,10 +82,35 @@ function MediasFactory(data) {
         } else {
             continue
         }
-        AddMedias(data_medias)
+        medias_list.push(data_medias)
+        //AddMedias(data_medias)
     }
     //TODO: add commentaire
     AddPhotographerInfosRecap(type, likes)
+    //AddMedias(ma_liste, sort_option)
+    //console.log("before", medias_list)
+    sortMedias(medias_list, sort_option)
+}
+
+//TODO: add commentaire
+function sortMedias(medias_list, sort_option) {
+    if (sort_option == "popularité") {
+        medias_list.sort(function(a, b) {
+            return a.likes-b.likes
+        })
+    }
+    else if (sort_option == "date") {
+        medias_list.sort(function(a, b) {
+            return a.date-b.date
+        })
+    }
+    else if (sort_option == "description") {
+        medias_list.sort(function(a, b) {
+            return a.description-b.description
+        })
+    }
+    //console.log("after sort", medias_list)
+    AddMedias(medias_list)
 }
 
 //TODO: add commentaire
@@ -113,22 +148,24 @@ function AddPhotographerInfos(data_photographer){
 //TODO: add commentaire
 function AddMedias(data_medias) {
     const mediasSection = document.getElementById("medias_section")
-    //console.log("DOM :", data_medias)
-   let name = String
-   if (data_medias["image"]) {
-    name = data_medias["image"]
-   } else {
-    name = data_medias["video"]
-   }
-    let medias_card_html = '<div class="card">' +
-    '<a href=""><img src="data/media_' + data_medias["photographerId"] + '/' + name + '" alt=""></a>' +
-    '<div class="content">' +
-    '<p>' + data_medias["description"] + '</p>' +
-    '<p>' + data_medias["price"] + '€' + data_medias["likes"] + '<i class="fas fa-heart"></i></p>' +
-    '</div>' +
-    '</div>'
-    //TODO: add commentaire
-    mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
+    console.log("DOM :", data_medias)
+    for (var element in data_medias) {
+        let name = String
+    if (data_medias[element]["image"]) {
+        name = data_medias[element]["image"]
+    } else {
+        name = data_medias[element]["video"]
+    }
+        let medias_card_html = '<div class="card">' +
+        '<a href=""><img src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt=""></a>' +
+        '<div class="content">' +
+        '<p>' + data_medias[element]["description"] + '</p>' +
+        '<p>' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
+        '</div>' +
+        '</div>'
+        //TODO: add commentaire
+        mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
+    }
 }
 
 //TODO: add commentaire

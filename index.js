@@ -117,7 +117,7 @@ function FilterPhotographers_fashion() {
     FetchPhotographersData("fashion")
 }
 function FilterPhotographers_architecture() {
-    FetchPhotographersData("architecture", "photographers")
+    FetchPhotographersData("architecture")
 }
 function FilterPhotographers_travel() {
     FetchPhotographersData("travel")
