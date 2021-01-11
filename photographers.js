@@ -128,7 +128,7 @@ function AddMedias(data_medias) {
     '</div>' +
     '</div>'
     //TODO: add commentaire
-    mediasSection.insertAdjacentHTML("afterbegin", medias_card_html)
+    mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
 }
 
 //TODO: add commentaire
