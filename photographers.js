@@ -95,18 +95,31 @@ function MediasFactory(data, sort_option) {
 //TODO: add commentaire
 function sortMedias(medias_list, sort_option) {
     if (sort_option == "popularité") {
+        console.log(sort_option)
         medias_list.sort(function(a, b) {
             return a.likes-b.likes
         })
     }
-    else if (sort_option == "date") {
+    if (sort_option == "date") {
+        console.log(sort_option)
         medias_list.sort(function(a, b) {
-            return a.date-b.date
+            var dateA = new Date(a.date)
+            var dateB = new Date(b.date)
+            return dateA-dateB
         })
     }
-    else if (sort_option == "description") {
+    if (sort_option == "description") {
+        console.log(sort_option)
         medias_list.sort(function(a, b) {
-            return a.description-b.description
+            var nameA = a.description.toLowerCase()
+            var nameB = b.description.toLowerCase()
+            if (nameA < nameB) {
+                return -1
+            }
+            if (nameA > nameB) {
+                return 1
+            }
+            return 0
         })
     }
     //console.log("after sort", medias_list)
