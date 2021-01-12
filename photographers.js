@@ -54,10 +54,19 @@ function FetchEvents(first_load) {
             RemoveLikes()
             FetchData(sortMedias.value, "media")
         })
-        openlightboxModal.forEach((link) => link.addEventListener("click", OpenLightboxModal));
-        closelightboxModal.addEventListener("click", function () {
-            CloseLightboxModal(lightboxModal)
-        })
+        openlightboxModal.forEach((link) => link.addEventListener("click", function () {
+            //console.log("link", link.innerHTML)
+            //console.log("openlightboxModal", openlightboxModal)
+            RemoveLightboxModal()
+            AddLightboxModal(lightboxModal, link)
+        }));
+        try {
+            closelightboxModal.addEventListener("click", function () {
+                CloseLightboxModal(lightboxModal)
+            })
+        } catch {
+            //
+        }
     }
 }
 
@@ -78,6 +87,17 @@ function RemoveLikes() {
     try {
         const likesInfos = document.getElementById("likes")
         likesInfos.remove()
+    } catch {
+        //
+    }
+}
+
+function RemoveLightboxModal() {
+    try {
+        const lightboxModalContent = document.querySelectorAll(".content")
+        for (var element in lightboxModalContent) {
+            lightboxModalContent[element].remove()
+        }
     } catch {
         //
     }
@@ -239,14 +259,10 @@ function AddMedias(data_medias) {
 }
 
 //TODO: add commentaire
-function OpenLightboxModal() {
-    const lightboxModal = document.querySelector(".lightbox_modal")
-    lightboxModal.style.display = "block";
-    console.log("JE PASSE BIEN ICI")
-    //NEED : chemin de l'image
-    // prev img -> next img
-    // titre de l'image
-
+function AddLightboxModal(lightboxModal, data) {
+    //TODO: Call reset Modal
+    console.log("DATA :", data)
+    console.log("DATA[1] :", data.innerHTML) // TODO: ciblé data[1]
     /*
     <div class="content">
         <div class="element">
@@ -258,6 +274,28 @@ function OpenLightboxModal() {
         <button class="close_modal"><i class="fas fa-times"></i></button>
     </div>
      */
+    let modal_html = '<div class="content">' +
+    '<div class="element">' +
+    '<a class="left_switch" href=""><i class="fas fa-chevron-left"></i></a>' +
+    data.innerHTML +
+    '<a class="right_switch" href=""><i class="fas fa-chevron-right"></i></a>' +
+    '</div>' +
+    '<p class="element_title">Titre</p>' +
+    '<button class="close_lightbox_modal"><i class="fas fa-times"></i></button>' +
+    '</div>'
+
+    console.log("modal_html", modal_html)
+
+    lightboxModal.insertAdjacentHTML("beforeend", modal_html)
+    OpenLightboxModal()
+
+}
+
+//TODO: add commentaire
+function OpenLightboxModal() {
+    const lightboxModal = document.querySelector(".lightbox_modal")
+    lightboxModal.style.display = "block";
+    FetchEvents()
 }
 
 //TODO: add commentaire
