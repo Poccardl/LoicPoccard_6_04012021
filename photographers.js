@@ -7,7 +7,7 @@ function FetchID() {
 }
 
 //TODO: rework code structure
-FetchEvents()
+FetchEvents("first_load")
 FetchData("popularité", "all")
 
 //TODO: add commentaire
@@ -27,17 +27,38 @@ function FetchData(sort_option, data_option) {
     })
 }
 
-function FetchEvents() {
-    // DOM Elements
-    const sortMedias = document.getElementById("sort_medias")
-    // Events
-    sortMedias.addEventListener("click", function () {
+function FetchEvents(first_load) {
+    if (first_load) {
+        // DOM Elements
+        const sortMedias = document.getElementById("sort_medias")
+        // Events
+        sortMedias.addEventListener("click", function () {
         console.log("sortMedias.value ::", sortMedias.value)
         //TODO: add commentaire
         RemoveMedias()
         RemoveLikes()
         FetchData(sortMedias.value, "media")
     })
+    } else {
+        // DOM Elements
+        const sortMedias = document.getElementById("sort_medias")
+        const lightboxModal = document.querySelector(".lightbox_modal")
+        const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
+        const closelightboxModal = document.querySelector(".close_lightbox_modal")
+
+        // Events
+        sortMedias.addEventListener("click", function () {
+            console.log("sortMedias.value ::", sortMedias.value)
+            //TODO: add commentaire
+            RemoveMedias()
+            RemoveLikes()
+            FetchData(sortMedias.value, "media")
+        })
+        openlightboxModal.forEach((link) => link.addEventListener("click", OpenLightboxModal));
+        closelightboxModal.addEventListener("click", function () {
+            CloseLightboxModal(lightboxModal)
+        })
+    }
 }
 
 function RemoveMedias() {
@@ -204,7 +225,7 @@ function AddMedias(data_medias) {
         name = data_medias[element]["video"]
     }
         let medias_card_html = '<div class="card">' +
-        '<a href=""><img src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt=""></a>' +
+        '<a class="open_lightbox_modal"><img src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt=""></a>' +
         '<div class="content">' +
         '<p>' + data_medias[element]["description"] + '</p>' +
         '<p>' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
@@ -213,7 +234,37 @@ function AddMedias(data_medias) {
         //TODO: add commentaire
         mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
     }
+    //TEST
+    FetchEvents()
 }
+
+//TODO: add commentaire
+function OpenLightboxModal() {
+    const lightboxModal = document.querySelector(".lightbox_modal")
+    lightboxModal.style.display = "block";
+    console.log("JE PASSE BIEN ICI")
+    //NEED : chemin de l'image
+    // prev img -> next img
+    // titre de l'image
+
+    /*
+    <div class="content">
+        <div class="element">
+            <a class="left_switch" href=""><i class="fas fa-chevron-left"></i></a>
+            <img src="data/media_82/Art_Triangle_Man.jpg" alt="">
+            <a class="right_switch" href=""><i class="fas fa-chevron-right"></i></a>
+        </div>
+        <p class="element_title">Titre</p>
+        <button class="close_modal"><i class="fas fa-times"></i></button>
+    </div>
+     */
+}
+
+//TODO: add commentaire
+function CloseLightboxModal(lightboxModal) {
+    lightboxModal.style.display = "none";
+}
+
 
 //TODO: add commentaire
 function AddPhotographerInfosRecap(type, data) {
