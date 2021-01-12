@@ -27,19 +27,21 @@ function FetchData(sort_option, data_option) {
     })
 }
 
-function FetchEvents(first_load) {
-    if (first_load) {
+function FetchEvents(type) {
+    if (type == "first_load") {
         // DOM Elements
         const sortMedias = document.getElementById("sort_medias")
+
         // Events
         sortMedias.addEventListener("click", function () {
-        console.log("sortMedias.value ::", sortMedias.value)
-        //TODO: add commentaire
-        RemoveMedias()
-        RemoveLikes()
-        FetchData(sortMedias.value, "media")
-    })
-    } else {
+            console.log("sortMedias.value ::", sortMedias.value)
+            //TODO: add commentaire
+            RemoveMedias()
+            RemoveLikes()
+            FetchData(sortMedias.value, "media")
+        })
+    }
+    else {
         // DOM Elements
         const sortMedias = document.getElementById("sort_medias")
         const lightboxModal = document.querySelector(".lightbox_modal")
@@ -55,8 +57,16 @@ function FetchEvents(first_load) {
             FetchData(sortMedias.value, "media")
         })
         openlightboxModal.forEach((link) => link.addEventListener("click", function () {
-            //console.log("link", link.innerHTML)
-            //console.log("openlightboxModal", openlightboxModal)
+            //TODO: HERE
+            for (var element in openlightboxModal) {
+                if (openlightboxModal[element] == link) {
+                    console.log("element number ->", element)
+                    var media_order = parseInt(element, 10)
+                }
+            }
+            console.log("-1 :", openlightboxModal[media_order -1])
+            console.log("0 :", openlightboxModal[media_order])
+            console.log("+1 :", openlightboxModal[media_order +1])
             RemoveLightboxModal()
             AddLightboxModal(lightboxModal, link)
         }));
@@ -94,7 +104,7 @@ function RemoveLikes() {
 
 function RemoveLightboxModal() {
     try {
-        const lightboxModalContent = document.querySelectorAll(".content")
+        const lightboxModalContent = document.querySelectorAll(".content_modal")
         for (var element in lightboxModalContent) {
             lightboxModalContent[element].remove()
         }
@@ -130,9 +140,7 @@ function PhotographerInfosFactory(data) {
 
 //TODO: add commentaire
 function MediasFactory(data, sort_option) {
-    console.log("sort_option ::", sort_option)
     const photographer_id = FetchID()
-    console.log("photographer_id AFTER FETCH", photographer_id)
     const type = "likes"
     let likes = 0
     let medias_list = []
@@ -154,25 +162,20 @@ function MediasFactory(data, sort_option) {
             continue
         }
         medias_list.push(data_medias)
-        //AddMedias(data_medias)
     }
     //TODO: add commentaire
     AddPhotographerInfosRecap(type, likes)
-    //AddMedias(ma_liste, sort_option)
-    //console.log("before", medias_list)
     sortMedias(medias_list, sort_option)
 }
 
 //TODO: add commentaire
 function sortMedias(medias_list, sort_option) {
     if (sort_option == "popularité") {
-        console.log(sort_option)
         medias_list.sort(function(a, b) {
             return a.likes-b.likes
         })
     }
     if (sort_option == "date") {
-        console.log(sort_option)
         medias_list.sort(function(a, b) {
             var dateA = new Date(a.date)
             var dateB = new Date(b.date)
@@ -180,7 +183,6 @@ function sortMedias(medias_list, sort_option) {
         })
     }
     if (sort_option == "titre") {
-        console.log(sort_option)
         medias_list.sort(function(a, b) {
             var nameA = a.description.toLowerCase()
             var nameB = b.description.toLowerCase()
@@ -196,13 +198,11 @@ function sortMedias(medias_list, sort_option) {
             }
         })
     }
-    //console.log("after sort", medias_list)
     AddMedias(medias_list)
 }
 
 //TODO: add commentaire
 function AddPhotographerInfos(data_photographer){
-   console.log("data_photographer[image]", data_photographer["image"])
     const photographerInfosSection = document.getElementById("photographer_infos_section")
     let photographer_infos_html = '<div class="photographer_infos">' +
     '<div>' +
@@ -235,7 +235,6 @@ function AddPhotographerInfos(data_photographer){
 //TODO: add commentaire
 function AddMedias(data_medias) {
     const mediasSection = document.getElementById("medias_container")
-    console.log("DOM :", data_medias)
 
     for (var element in data_medias) {
         let name = String
@@ -260,35 +259,17 @@ function AddMedias(data_medias) {
 
 //TODO: add commentaire
 function AddLightboxModal(lightboxModal, data) {
-    //TODO: Call reset Modal
-    console.log("DATA :", data)
-    console.log("DATA[1] :", data.innerHTML) // TODO: ciblé data[1]
-    /*
-    <div class="content">
-        <div class="element">
-            <a class="left_switch" href=""><i class="fas fa-chevron-left"></i></a>
-            <img src="data/media_82/Art_Triangle_Man.jpg" alt="">
-            <a class="right_switch" href=""><i class="fas fa-chevron-right"></i></a>
-        </div>
-        <p class="element_title">Titre</p>
-        <button class="close_modal"><i class="fas fa-times"></i></button>
-    </div>
-     */
-    let modal_html = '<div class="content">' +
+    let modal_html = '<div class="content_modal">' +
     '<div class="element">' +
-    '<a class="left_switch" href=""><i class="fas fa-chevron-left"></i></a>' +
+    '<a class="left_switch"><i class="fas fa-chevron-left"></i></a>' +
     data.innerHTML +
-    '<a class="right_switch" href=""><i class="fas fa-chevron-right"></i></a>' +
+    '<a class="right_switch"><i class="fas fa-chevron-right"></i></a>' +
     '</div>' +
     '<p class="element_title">Titre</p>' +
     '<button class="close_lightbox_modal"><i class="fas fa-times"></i></button>' +
     '</div>'
-
-    console.log("modal_html", modal_html)
-
     lightboxModal.insertAdjacentHTML("beforeend", modal_html)
     OpenLightboxModal()
-
 }
 
 //TODO: add commentaire
@@ -296,6 +277,15 @@ function OpenLightboxModal() {
     const lightboxModal = document.querySelector(".lightbox_modal")
     lightboxModal.style.display = "block";
     FetchEvents()
+}
+
+//TODO: add commentaire
+function LeftSwitch(prevlightboxModal) {
+    console.log("LeftSwitch")
+}
+//TODO: add commentaire
+function RightSwitch(nextlightboxModal) {
+    console.log("RightSwitch")
 }
 
 //TODO: add commentaire
