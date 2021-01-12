@@ -193,7 +193,7 @@ function AddPhotographerInfos(data_photographer){
 
 //TODO: add commentaire
 function AddMedias(data_medias) {
-    const mediasSection = document.getElementById("medias_section")
+    const mediasSection = document.getElementById("medias_container")
     console.log("DOM :", data_medias)
 
     for (var element in data_medias) {

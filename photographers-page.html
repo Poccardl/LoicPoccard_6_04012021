@@ -22,7 +22,7 @@
     <main role="main">
         <!-- medias section -->
         <section id="photographer_infos_section"></section>
-        <button>Contactez-moi</button>
+        <button id="contact">Contactez-moi</button>
         <div class="sort_media">
             <label>Trier par</label>
             <select id="sort_medias">
@@ -31,7 +31,20 @@
                 <option value="titre">Titre</option>
             </select>
         </div>
-        <section id="medias_section"></section>
+        <section id="medias_section">
+            <div id="medias_container"></div>
+            <div class="lightbox_modal">
+                <div class="content">
+                    <div class="element">
+                        <a class="left_switch" href=""><i class="fas fa-chevron-left"></i></a>
+                        <img src="data/media_82/Art_Triangle_Man.jpg" alt="">
+                        <a class="right_switch" href=""><i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <p class="element_title">Titre</p>
+                    <button class="close_modal"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </section>
         <div class="photographer_infos_recap"></div>
     </main>
     <script src="photographers.js"></script>
