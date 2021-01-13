@@ -34,52 +34,26 @@ function FetchEvents(type) {
 
         // Events
         sortMedias.addEventListener("click", function () {
-            console.log("sortMedias.value ::", sortMedias.value)
-            //TODO: add commentaire
-            RemoveMedias()
-            RemoveLikes()
             FetchData(sortMedias.value, "media")
         })
-    }
-    else if (type == Number) {
-        const lightboxModal = document.querySelector(".lightbox_modal")
-        const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
-        RemoveLightboxModal()
-        AddLightboxModal(lightboxModal, openlightboxModal[type])
-
-        LeftSwitch(openlightboxModal, type -1)
-        RightSwitch(openlightboxModal, type +1)
-
     } else {
         // DOM Elements
         const sortMedias = document.getElementById("sort_medias")
         const lightboxModal = document.querySelector(".lightbox_modal")
         const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
         const closelightboxModal = document.querySelector(".close_lightbox_modal")
-
         // Events
         sortMedias.addEventListener("click", function () {
-            console.log("sortMedias.value ::", sortMedias.value)
-            //TODO: add commentaire
-            RemoveMedias()
-            RemoveLikes()
             FetchData(sortMedias.value, "media")
         })
         openlightboxModal.forEach((link) => link.addEventListener("click", function () {
-            //TODO: HERE
             for (var element in openlightboxModal) {
                 if (openlightboxModal[element] == link) {
-                    console.log("element number ->", element)
                     var media_order = parseInt(element, 10)
                 }
             }
-            console.log("-1 :", openlightboxModal[media_order -1])
-            console.log("0 :", link)
-            console.log("+1 :", openlightboxModal[media_order +1])
             RemoveLightboxModal()
             AddLightboxModal(lightboxModal, link)
-
-            //CALL PREV(openlightboxModal[media_order -1]) OR CALL NEXT(openlightboxModal[media_order +1])
             LeftSwitch(openlightboxModal, media_order -1)
             RightSwitch(openlightboxModal, media_order +1)
         }));
@@ -212,6 +186,8 @@ function sortMedias(medias_list, sort_option) {
             }
         })
     }
+    RemoveMedias()
+    RemoveLikes()
     AddMedias(medias_list)
 }
 
@@ -249,7 +225,6 @@ function AddPhotographerInfos(data_photographer){
 //TODO: add commentaire
 function AddMedias(data_medias) {
     const mediasSection = document.getElementById("medias_container")
-
     for (var element in data_medias) {
         let name = String
     if (data_medias[element]["image"]) {
@@ -258,7 +233,7 @@ function AddMedias(data_medias) {
         name = data_medias[element]["video"]
     }
         let medias_card_html = '<div class="card">' +
-        '<a class="open_lightbox_modal"><img src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt=""></a>' +
+        '<a class="open_lightbox_modal"><img src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt="' + data_medias[element]["description"] + '"></a>' +
         '<div class="content">' +
         '<p>' + data_medias[element]["description"] + '</p>' +
         '<p>' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
@@ -267,12 +242,12 @@ function AddMedias(data_medias) {
         //TODO: add commentaire
         mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
     }
-    //TEST
     FetchEvents()
 }
 
 //TODO: add commentaire
 function AddLightboxModal(lightboxModal, data) {
+    //TODO: take alt for title
     let modal_html = '<div class="content_modal">' +
     '<div class="element">' +
     '<a class="left_switch"><i class="fas fa-chevron-left"></i></a>' +
@@ -295,13 +270,8 @@ function OpenLightboxModal() {
 
 //TODO: add commentaire
 function LeftSwitch(openlightboxModal, media_order) {
-    console.log("openlightboxModal", openlightboxModal)
-    console.log("LeftSwitch", media_order)
-
     const leftSwitch  = document.querySelector(".left_switch")
     leftSwitch.addEventListener("click", function() {
-        console.log("leftSwitch")
-        //FetchEvents(media_order)
         const lightboxModal = document.querySelector(".lightbox_modal")
         const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
         RemoveLightboxModal()
@@ -314,13 +284,8 @@ function LeftSwitch(openlightboxModal, media_order) {
 }
 //TODO: add commentaire
 function RightSwitch(openlightboxModal, media_order) {
-    console.log("openlightboxModal", openlightboxModal)
-    console.log("RightSwitch", media_order)
-
-
     const rightSwitch = document.querySelector(".right_switch")
     rightSwitch.addEventListener("click", function() {
-        console.log("rightSwitch")
         const lightboxModal = document.querySelector(".lightbox_modal")
         const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
         RemoveLightboxModal()
