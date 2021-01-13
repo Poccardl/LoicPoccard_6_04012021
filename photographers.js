@@ -71,9 +71,7 @@ function FetchEvents(type) {
 function RemoveMedias() {
     try {
         const mediasSection = document.querySelectorAll(".card")
-        console.log("mediasSection", mediasSection)
         for (var element in mediasSection) {
-            console.log("element", mediasSection[element])
             mediasSection[element].remove()
         }
     } catch {
@@ -174,7 +172,6 @@ function sortMedias(medias_list, sort_option) {
         medias_list.sort(function(a, b) {
             var nameA = a.description.toLowerCase()
             var nameB = b.description.toLowerCase()
-            console.log(nameA, nameB)
             if (nameA < nameB) {
                 return -1
             }
@@ -186,8 +183,6 @@ function sortMedias(medias_list, sort_option) {
             }
         })
     }
-    RemoveMedias()
-    RemoveLikes()
     AddMedias(medias_list)
 }
 
@@ -224,6 +219,7 @@ function AddPhotographerInfos(data_photographer){
 
 //TODO: add commentaire
 function AddMedias(data_medias) {
+    RemoveMedias()
     const mediasSection = document.getElementById("medias_container")
     for (var element in data_medias) {
         let name = String
@@ -247,7 +243,6 @@ function AddMedias(data_medias) {
 
 //TODO: add commentaire
 function AddLightboxModal(lightboxModal, data) {
-    //TODO: take alt for title
     let modal_html = '<div class="content_modal">' +
     '<div class="element">' +
     '<a class="left_switch"><i class="fas fa-chevron-left"></i></a>' +
@@ -307,11 +302,12 @@ function CloseLightboxModal(lightboxModal) {
 function AddPhotographerInfosRecap(type, data) {
     const infosRecap = document.querySelector(".photographer_infos_recap")
     let html = ""
-   if (type == "likes") {
-    html = '<p id="likes">' + data + '<i class="fas fa-heart"></i></p>'
-   }
-   else if (type == "price") {
-    html = '<p>' + data + '€ / jour</p>'
-   }
-   infosRecap.insertAdjacentHTML("afterbegin", html)
+    if (type == "likes") {
+        RemoveLikes()
+        html = '<p id="likes">' + data + '<i class="fas fa-heart"></i></p>'
+    }
+    else if (type == "price") {
+        html = '<p>' + data + '€ / jour</p>'
+    }
+    infosRecap.insertAdjacentHTML("afterbegin", html)
 }
