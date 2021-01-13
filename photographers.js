@@ -243,13 +243,16 @@ function AddMedias(data_medias) {
 
 //TODO: add commentaire
 function AddLightboxModal(lightboxModal, data) {
+    var media_title = ReturnAlt(data.innerHTML)
+    console.log("media_title", media_title)
+
     let modal_html = '<div class="content_modal">' +
     '<div class="element">' +
     '<a class="left_switch"><i class="fas fa-chevron-left"></i></a>' +
     data.innerHTML +
     '<a class="right_switch"><i class="fas fa-chevron-right"></i></a>' +
     '</div>' +
-    '<p class="element_title">Titre</p>' +
+    '<p class="element_title">' + media_title + '</p>' +
     '<button class="close_lightbox_modal"><i class="fas fa-times"></i></button>' +
     '</div>'
     lightboxModal.insertAdjacentHTML("beforeend", modal_html)
@@ -285,7 +288,6 @@ function RightSwitch(openlightboxModal, media_order) {
         const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
         RemoveLightboxModal()
         AddLightboxModal(lightboxModal, openlightboxModal[media_order])
-
         LeftSwitch(openlightboxModal, media_order -1)
         RightSwitch(openlightboxModal, media_order +1)
     })
@@ -296,7 +298,6 @@ function RightSwitch(openlightboxModal, media_order) {
 function CloseLightboxModal(lightboxModal) {
     lightboxModal.style.display = "none";
 }
-
 
 //TODO: add commentaire
 function AddPhotographerInfosRecap(type, data) {
@@ -310,4 +311,11 @@ function AddPhotographerInfosRecap(type, data) {
         html = '<p>' + data + '€ / jour</p>'
     }
     infosRecap.insertAdjacentHTML("afterbegin", html)
+}
+
+//TODO: add commentaire
+function ReturnAlt(data) {
+    const regex_alt = RegExp(/alt="([\sa-zA-Z0-9]{0,})"/)
+    const alt = regex_alt.exec(data)[1]
+    return alt
 }
