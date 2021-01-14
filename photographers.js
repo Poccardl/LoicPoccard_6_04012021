@@ -7,7 +7,7 @@ function FetchID() {
 }
 
 //TODO: rework code structure
-FetchEvents("first_load")
+FirstFetchEvents()
 FetchData("popularité", "all")
 
 //TODO: add commentaire
@@ -27,56 +27,73 @@ function FetchData(sort_option, data_option) {
     })
 }
 
-function FetchEvents(type) {
-    if (type == "first_load") {
-        // DOM Elements
-        const sortMedias = document.getElementById("sort_medias")
+//TODO: add commentaire
+function FirstFetchEvents() {
+    // DOM Elements
+    const sortMedias = document.getElementById("sort_medias")
+    // Events
+    sortMedias.addEventListener("click", function () {
+        FetchData(sortMedias.value, "media")
+    })
+    FetchEvents("likes")
+}
 
-        // Events
-        sortMedias.addEventListener("click", function () {
-            FetchData(sortMedias.value, "media")
-        })
-    } else {
-        // DOM Elements
-        const sortMedias = document.getElementById("sort_medias")
-        const lightboxModal = document.querySelector(".lightbox_modal")
-        const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
-        const closelightboxModal = document.querySelector(".close_lightbox_modal")
-        // Events
-        sortMedias.addEventListener("click", function () {
-            FetchData(sortMedias.value, "media")
-        })
-        openlightboxModal.forEach((link) => link.addEventListener("click", function () {
-            for (var element in openlightboxModal) {
-                if (openlightboxModal[element] == link) {
-                    var media_order = parseInt(element, 10)
-                }
+//TODO: add commentaire
+function FetchEvents() {
+    // DOM Elements
+    const sortMedias = document.getElementById("sort_medias")
+    const lightboxModal = document.querySelector(".lightbox_modal")
+    const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
+    const closelightboxModal = document.querySelector(".close_lightbox_modal")
+    // Events
+    sortMedias.addEventListener("click", function () {
+        FetchData(sortMedias.value, "media")
+    })
+    openlightboxModal.forEach((link) => link.addEventListener("click", function () {
+        for (var element in openlightboxModal) {
+            if (openlightboxModal[element] == link) {
+                var media_order = parseInt(element, 10)
             }
-            RemoveLightboxModal()
-            console.log("lightboxModal", lightboxModal)
-            console.log("link", link)
-            AddLightboxModal(lightboxModal, link) //TODO: add type ?
-            if (media_order == 0) {
-                LeftSwitch(openlightboxModal, openlightboxModal.length -1)
-                RightSwitch(openlightboxModal, media_order +1)
-            }
-            else if (media_order == openlightboxModal.length -1) {
-                LeftSwitch(openlightboxModal, media_order -1)
-                RightSwitch(openlightboxModal, 0)
-            } else {
-                LeftSwitch(openlightboxModal, media_order -1)
-                RightSwitch(openlightboxModal, media_order +1)
-            }
-        }));
-
-        try {
-            closelightboxModal.addEventListener("click", function () {
-                CloseLightboxModal(lightboxModal)
-            })
-        } catch {
-            //
         }
+        RemoveLightboxModal()
+        AddLightboxModal(lightboxModal, link)
+        if (media_order == 0) {
+            LeftSwitch(openlightboxModal, openlightboxModal.length -1)
+            RightSwitch(openlightboxModal, media_order +1)
+        }
+        else if (media_order == openlightboxModal.length -1) {
+            LeftSwitch(openlightboxModal, media_order -1)
+            RightSwitch(openlightboxModal, 0)
+        } else {
+            LeftSwitch(openlightboxModal, media_order -1)
+            RightSwitch(openlightboxModal, media_order +1)
+        }
+    }));
+    try {
+        closelightboxModal.addEventListener("click", function () {
+            CloseLightboxModal(lightboxModal)
+        })
+    } catch {
+        //
     }
+}
+
+//TODO: add commentaire
+function FetchLikes() {
+    //DOM Elements
+    const addLikes = document.querySelectorAll(".fa-heart")
+    console.log("addLikes ::", addLikes)
+    // Events
+    addLikes.forEach((link) => link.addEventListener("click", function() {
+        //on passe plusieurs fois ici alors que je clique une seule fois ? Pourquoi ?
+        for (var element in addLikes) {
+            if (addLikes[element] == link) {
+                var likes_order = parseInt(element, 10)
+            }
+        }
+        console.log("likes_order", likes_order)
+        AddLikes(likes_order)
+    }))
 }
 
 function RemoveMedias() {
@@ -248,13 +265,14 @@ function AddMedias(data_medias) {
         '<a class="open_lightbox_modal">' + media_tag_html + '</a>' +
         '<div class="content">' +
         '<p>' + data_medias[element]["description"] + '</p>' +
-        '<p>' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
+        '<p class="like">' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
         '</div>' +
         '</div>'
         //TODO: add commentaire
         mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
     }
     FetchEvents()
+    FetchLikes()
 }
 
 //TODO: add commentaire
@@ -264,7 +282,6 @@ function AddLightboxModal(lightboxModal, data) {
     if (type == "video") {
         var link = ReturnMediaLink(data.innerHTML)
         media_html = '<video controls width="250" ><source src="' + link + '.mp4" type="video/mp4"></video>'
-        console.log("media_html", media_html)
     }
     var media_title = ReturnAlt(data.innerHTML)
     let modal_html = '<div class="content_modal">' +
@@ -284,6 +301,7 @@ function AddLightboxModal(lightboxModal, data) {
 function OpenLightboxModal() {
     const lightboxModal = document.querySelector(".lightbox_modal")
     lightboxModal.style.display = "block";
+    //TODO: c'est ici que ça merde du coup
     FetchEvents()
 }
 
@@ -351,6 +369,20 @@ function AddPhotographerInfosRecap(type, data) {
 }
 
 //TODO: add commentaire
+function AddLikes(likes_order) {
+    console.log("ON PASSE ICI")
+    const likesNumber = document.querySelectorAll('.like')
+    let media_like = ReturnMediaLikes(likesNumber[likes_order].innerText)
+    likesNumber[likes_order].innerText = media_like
+    likesNumber[likes_order].insertAdjacentHTML("beforeend", '<i class="fas fa-heart" aria-hidden="true"></i>')
+
+    const totalLikes = document.getElementById("likes")
+    let total_likes = Number(totalLikes.innerText) +1
+    totalLikes.innerText = total_likes
+    totalLikes.insertAdjacentHTML("beforeend", '<i class="fas fa-heart" aria-hidden="true"></i>')
+}
+
+//TODO: add commentaire
 function ReturnAlt(data) {
     const regex_alt = RegExp(/alt="([\sa-zA-Z0-9]{0,})"/)
     const alt = regex_alt.exec(data)[1]
@@ -364,9 +396,18 @@ function ReturnMediaType(data) {
     return type
 }
 
-//TOOD: add commentaire
+//TODO: add commentaire
 function ReturnMediaLink(data) {
     const regex_link = RegExp(/src="([/_-\sa-zA-Z0-9]*).png"/)
     const link = regex_link.exec(data)[1]
     return link
+}
+
+//TODO: add commentaire
+function ReturnMediaLikes(data) {
+    const regex_likes = RegExp(/^(\d*€)(\d*)$/)
+    const price = regex_likes.exec(data)[1]
+    const like =  Number(regex_likes.exec(data)[2]) +1
+    let media_like = price + like
+    return media_like
 }
