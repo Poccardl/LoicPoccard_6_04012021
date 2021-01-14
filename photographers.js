@@ -53,7 +53,9 @@ function FetchEvents(type) {
                 }
             }
             RemoveLightboxModal()
-            AddLightboxModal(lightboxModal, link)
+            console.log("lightboxModal", lightboxModal)
+            console.log("link", link)
+            AddLightboxModal(lightboxModal, link) //TODO: add type ?
             if (media_order == 0) {
                 LeftSwitch(openlightboxModal, openlightboxModal.length -1)
                 RightSwitch(openlightboxModal, media_order +1)
@@ -230,15 +232,20 @@ function AddPhotographerInfos(data_photographer){
 function AddMedias(data_medias) {
     RemoveMedias()
     const mediasSection = document.getElementById("medias_container")
+    var media_tag_html = String
     for (var element in data_medias) {
         let name = String
     if (data_medias[element]["image"]) {
         name = data_medias[element]["image"]
+        media_tag_html = '<img class="image" src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt="' + data_medias[element]["description"] + '">'
     } else {
         name = data_medias[element]["video"]
+        const regex_name = RegExp(/(\w*).mp4/)
+        const video_name = regex_name.exec(name)[1]
+        media_tag_html = '<img class="video" src="data/media_' + data_medias[element]["photographerId"] + '/' + video_name + '.png" alt="' + data_medias[element]["description"] + '">'
     }
         let medias_card_html = '<div class="card">' +
-        '<a class="open_lightbox_modal"><img src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt="' + data_medias[element]["description"] + '"></a>' +
+        '<a class="open_lightbox_modal">' + media_tag_html + '</a>' +
         '<div class="content">' +
         '<p>' + data_medias[element]["description"] + '</p>' +
         '<p>' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
@@ -252,11 +259,18 @@ function AddMedias(data_medias) {
 
 //TODO: add commentaire
 function AddLightboxModal(lightboxModal, data) {
+    var type = ReturnMediaType(data.innerHTML)
+    var media_html = data.innerHTML
+    if (type == "video") {
+        var link = ReturnMediaLink(data.innerHTML)
+        media_html = '<video controls width="250" ><source src="' + link + '.mp4" type="video/mp4"></video>'
+        console.log("media_html", media_html)
+    }
     var media_title = ReturnAlt(data.innerHTML)
     let modal_html = '<div class="content_modal">' +
     '<div class="element">' +
     '<a class="left_switch"><i class="fas fa-chevron-left"></i></a>' +
-    data.innerHTML +
+    media_html +
     '<a class="right_switch"><i class="fas fa-chevron-right"></i></a>' +
     '</div>' +
     '<p class="element_title">' + media_title + '</p>' +
@@ -315,7 +329,6 @@ function RightSwitch(openlightboxModal, media_order) {
             RightSwitch(openlightboxModal, media_order +1)
         }
     })
-
 }
 
 //TODO: add commentaire
@@ -342,4 +355,18 @@ function ReturnAlt(data) {
     const regex_alt = RegExp(/alt="([\sa-zA-Z0-9]{0,})"/)
     const alt = regex_alt.exec(data)[1]
     return alt
+}
+
+//TODO: add commentaire
+function ReturnMediaType(data) {
+    const regex_class = RegExp(/class="([_-\sa-zA-Z0-9]*)"/)
+    const type = regex_class.exec(data)[1]
+    return type
+}
+
+//TOOD: add commentaire
+function ReturnMediaLink(data) {
+    const regex_link = RegExp(/src="([/_-\sa-zA-Z0-9]*).png"/)
+    const link = regex_link.exec(data)[1]
+    return link
 }
