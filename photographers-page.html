@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="main.css">
         <!-- Mobile first option -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Font Awesome-->
+        <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/6f509de28c.js" crossorigin="anonymous"></script>
         <!-- favicon -->
         <link rel="icon" type="image/png" href="img/fisheye-logo.png">
@@ -36,6 +36,38 @@
             <div class="lightbox_modal"></div>
         </section>
         <div class="photographer_infos_recap"></div>
+        <div class="contact_modal">
+            <div class="content">
+                <span class="close"><i class="fas fa-times"></i></span>
+                <form name="contact" action="index.html" method="get">
+                    <div class="header_modal">
+                        <h1>Contactez-moi</h1>
+                    </div>
+                    <!--  -->
+                    <div class="formData">
+                        <label for="first">Prénom</label><br>
+                        <input class="text-control" id="first" name="first"><br>
+                    </div>
+                    <!--  -->
+                    <div class="formData">
+                        <label for="last">Nom</label><br>
+                        <input class="text-control" id="last" name="last"><br>
+                    </div>
+                    <!--  -->
+                    <div class="formData">
+                        <label for="email">E-mail</label><br>
+                        <input class="text-control" id="email" name="email"><br>
+                    </div>
+                    <!--  -->
+                    <div class="formData">
+                        <label for="email">Votre message</label><br>
+                        <input class="text-control" id="message" name="message"><br>
+                    </div>
+                    <!--  -->
+                    <input class="btn-submit" type="submit" class="button" value="Envoyer">
+                </form>
+            </div>
+        </div>
     </main>
     <script src="photographers.js"></script>
 </body>
