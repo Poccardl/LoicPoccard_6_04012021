@@ -8,6 +8,7 @@ function FetchID() {
 
 //TODO: rework code structure
 FirstFetchEvents()
+FetchContactForm()
 FetchData("popularité", "all")
 
 //TODO: add commentaire
@@ -80,6 +81,14 @@ function FetchEvents() {
     } catch {
         //
     }
+}
+
+//TODO: add commentaire
+function FetchContactForm() {
+    const formData = document.querySelectorAll(".formData input");
+    formData.forEach((input) => input.addEventListener("change", function() {
+        console.log("formData", input.id, ':', input.value)
+    }))
 }
 
 //TODO: add commentaire
