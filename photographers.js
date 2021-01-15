@@ -41,11 +41,14 @@ function FirstFetchEvents() {
 //TODO: add commentaire
 function FetchEvents() {
     // DOM Elements
+    const contactModal = document.getElementById("contact")
+    const closeContactModal = document.querySelector(".close")
     const sortMedias = document.getElementById("sort_medias")
     const lightboxModal = document.querySelector(".lightbox_modal")
     const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
     const closelightboxModal = document.querySelector(".close_lightbox_modal")
     // Events
+    contactModal.addEventListener("click", OpenContactModal)
     sortMedias.addEventListener("click", function () {
         FetchData(sortMedias.value, "media")
     })
@@ -70,6 +73,7 @@ function FetchEvents() {
         }
     }));
     try {
+        closeContactModal.addEventListener("click", CloseContactModal)
         closelightboxModal.addEventListener("click", function () {
             CloseLightboxModal(lightboxModal)
         })
@@ -298,10 +302,16 @@ function AddLightboxModal(lightboxModal, data) {
 }
 
 //TODO: add commentaire
+function OpenContactModal() {
+    const openContactModal = document.querySelector(".contact_modal")
+    openContactModal.style.display = "flex"
+    FetchEvents()
+}
+
+//TODO: add commentaire
 function OpenLightboxModal() {
     const lightboxModal = document.querySelector(".lightbox_modal")
     lightboxModal.style.display = "block";
-    //TODO: c'est ici que ça merde du coup
     FetchEvents()
 }
 
@@ -347,6 +357,13 @@ function RightSwitch(openlightboxModal, media_order) {
             RightSwitch(openlightboxModal, media_order +1)
         }
     })
+}
+
+//TODO: add commentaire
+function CloseContactModal() {
+    console.log("closemodal")
+    const openContactModal = document.querySelector(".contact_modal")
+    openContactModal.style.display = "none"
 }
 
 //TODO: add commentaire
