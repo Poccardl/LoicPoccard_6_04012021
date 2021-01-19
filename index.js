@@ -40,6 +40,7 @@ function FetchEvents() {
     const eventsNavigation = document.querySelectorAll(".events")
 
     // Events
+    window.addEventListener("scroll", ScrollLink)
     portailNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_portrait));
     artNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_art));
     fashionNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_fashion));
@@ -142,4 +143,13 @@ function FilterPhotographers_animals() {
 }
 function FilterPhotographers_events() {
     FetchPhotographersData("events")
+}
+
+function ScrollLink() {
+    const scrollLink = document.querySelector(".dynamic_display")
+    if (window.scrollY > 20) {
+        scrollLink.style.display = "block"
+    } else {
+        scrollLink.style.display = "none"
+    }
 }
