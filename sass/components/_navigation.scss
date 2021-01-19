@@ -1,4 +1,4 @@
-nav {
+.index_nav {
     font-size: 14px;
     ul {
         display: flex;
@@ -6,6 +6,30 @@ nav {
         justify-content: center;
         padding-left: 0px;
         li {
+            margin: 5px;
+            border-style: solid;
+            border-width: 0.5px;
+            border-radius: 11px;
+            border-color: $color-tertiary;
+            cursor: pointer;
+            padding: 2px;
+            color: $color-primary;
+            &:hover {
+                border-radius: 11px;
+                background-color: $color-primary;
+                color: white;
+            }
+        }
+    }
+}
+.photographer_nav {
+    font-size: 14px;
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-left: 0px;
+        a {
             margin: 5px;
             border-style: solid;
             border-width: 0.5px;

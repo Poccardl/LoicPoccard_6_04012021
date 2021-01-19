@@ -1,5 +1,14 @@
+function FetchTag() {
+    // Récupère le tag des photographes à afficher à l'aide d'une expression régulière
+    const regex_tag = RegExp(/\w{0,}$/)
+    const photographer_tag = regex_tag.exec(document.URL)[0]
+    console.log("photographer_tag :", photographer_tag)
+    return photographer_tag
+}
+var type = FetchTag()
+
 FetchEvents()
-FetchPhotographersData("all")
+FetchPhotographersData(type)
 
 //TODO: add commentaire
 function FetchPhotographersData(tag) {
@@ -8,6 +17,9 @@ function FetchPhotographersData(tag) {
         return resp.json()
     })
     .then(function(data) {
+        if (tag == "html") {
+            tag = "all"
+        }
         console.log("photographers Data ->", data["photographers"])
         RemovePhotographers()
         PhotographersFactory(data["photographers"], tag)
@@ -72,7 +84,7 @@ function AddPhotographersCards(data_photographers) {
     '<h4>' + data_photographers["city"] + ', ' + data_photographers["country"] + '</h4>' +
     '<p>' + data_photographers["tagline"] + '</p>' +
     '<p>' + data_photographers["price"] + '€/jour</p>' +
-    '<nav role="navigation" aria-label="photographer categories">' +
+    '<nav class="index_nav" role="navigation" aria-label="photographer categories">' +
     '<ul>'
     // ajoute les tags pour la navigation
     var photographers_tags_html = ""

@@ -240,14 +240,17 @@ function AddPhotographerInfos(data_photographer){
     '<img src="/data/Photographers ID Photos/' + data_photographer["portrait"] + '" alt="">' +
     '</div>' +
     '</div>' +
-    '<nav role="navigation" aria-label="photographer categories">' +
+    '<nav class="photographer_nav" role="navigation" aria-label="photographer categories">' +
     '<ul>'
     var photographer_tags_html = ""
     for (var element in data_photographer["tags"]) {
-        photographer_tags_html = photographer_tags_html +
-        '<li class="' + data_photographer["tags"][element] + '">#' +
-        data_photographer["tags"][element] +
-        '</li>'
+        if (data_photographer["tags"][element] != "all") {
+            photographer_tags_html = photographer_tags_html +
+            '<li class="' + data_photographer["tags"][element] + '">' +
+            '<a href="index.html?tag=' + data_photographer["tags"][element] + '">#' +
+            data_photographer["tags"][element] + '</a>' +
+            '</li>'
+        }
     }
     photographer_infos_html =  photographer_infos_html +
     photographer_tags_html +

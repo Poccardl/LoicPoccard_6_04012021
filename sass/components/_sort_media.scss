@@ -2,7 +2,7 @@
     display: none;
     @include laptop {
         display: block;
-        width: 100%;
+        //width: 100%;
         margin: 20px;
         select {
             padding: 15px 25px 15px 25px;
