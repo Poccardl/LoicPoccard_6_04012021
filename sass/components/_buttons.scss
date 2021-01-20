@@ -1,0 +1,22 @@
+#contact {
+    position: fixed;
+    bottom: 20px;
+    left: calc(50% - 62.97px);
+    padding: 5px 20px 5px 20px;
+    color: white;
+    background-color: $color-primary;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    @include laptop {
+        position: absolute;
+        top: 10%;
+        bottom: auto;
+        left: 400px;
+        padding: 20px;
+    }
+    &:hover {
+        color: black;
+        background-color: $color-secondary;
+    }
+}

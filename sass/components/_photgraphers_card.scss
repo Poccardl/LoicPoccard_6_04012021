@@ -1,0 +1,21 @@
+#photographer_section {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    @include laptop {
+        flex-direction: row;
+    }
+    .card {
+        margin: 20px;
+        @include laptop {
+            width: 30%;
+        }
+        text-align: center;
+        h2 {
+            color: $color-secondary;
+        }
+        h4 {
+            color: $color-primary;
+        }
+    }
+}

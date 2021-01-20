@@ -1,0 +1,54 @@
+#photographer_infos_section {
+    position: relative;
+    width: 100%;
+    .photographer_infos {
+        display: flex;
+        margin: 0px 10px 0px 10px;
+        @include laptop {
+            margin: 20px;
+            justify-content: space-between;
+            background-color: $color-quaternary;
+        }
+    }
+    div {
+        margin: 10px;
+        h1 {
+            color: $color-secondary;
+        }
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 90%;
+            object-fit: cover;
+            @include laptop {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    }
+    nav {
+        ul {
+            justify-content: start;
+            margin: 0px;
+        }
+        @include laptop {
+            position: absolute;
+            bottom: 25%;
+            left: 20px;
+        }
+    }
+}
+.photographer_infos_recap {
+    display: none;
+    @include laptop {
+        position: fixed;
+        bottom: 0px;
+        right: 50px;
+        border-radius: 5px 5px 0px 0px;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 20px 5px 20px;
+        width: 200px;
+        background-color: $color-secondary;
+    }
+}

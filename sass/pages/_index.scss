@@ -1,0 +1,38 @@
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 70%;
+    @include laptop {
+        flex-direction: row;
+    }
+    color: $color-primary;
+    .dynamic_display {
+        position: fixed;
+        left: calc(50% - 60.8px);
+        padding: 2px;
+        top: 10px;
+        display: none;
+        background-color: $color-secondary;
+        border-radius: 5px;
+        color: black;
+    }
+    img {
+        width: 224px;
+        height: 52px;
+    }
+}
+main {
+    .title {
+        color: $color-primary;
+        font-size: 14px;
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        @include tablet {
+            font-size: 32px;
+            top: -5px;
+        }
+    }
+}
