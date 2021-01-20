@@ -265,20 +265,20 @@ function AddPhotographerInfos(data_photographer){
 function AddMedias(data_medias) {
     RemoveMedias()
     const mediasSection = document.getElementById("medias_container")
-    var media_tag_html = String
+    var media_card_html = String
     for (var element in data_medias) {
         let name = String
     if (data_medias[element]["image"]) {
         name = data_medias[element]["image"]
-        media_tag_html = '<img class="image" src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt="' + data_medias[element]["description"] + '">'
+        media_card_html = '<img class="image" src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt="' + data_medias[element]["description"] + '">'
     } else {
         name = data_medias[element]["video"]
         const regex_name = RegExp(/(\w*).mp4/)
         const video_name = regex_name.exec(name)[1]
-        media_tag_html = '<img class="video" src="data/media_' + data_medias[element]["photographerId"] + '/' + video_name + '.png" alt="' + data_medias[element]["description"] + '">'
+        media_card_html = '<img class="video" src="data/media_' + data_medias[element]["photographerId"] + '/' + video_name + '.png" alt="' + data_medias[element]["description"] + '">'
     }
         let medias_card_html = '<div class="card">' +
-        '<a class="open_lightbox_modal">' + media_tag_html + '</a>' +
+        '<a class="open_lightbox_modal">' + media_card_html + '</a>' +
         '<div class="content">' +
         '<p>' + data_medias[element]["description"] + '</p>' +
         '<p class="like">' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
