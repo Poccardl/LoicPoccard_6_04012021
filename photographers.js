@@ -28,7 +28,6 @@ function FetchData(sort_option, data_option) {
         if (data_option == "all") {
             PhotographerInfosFactory(data["photographers"])
             let media_obj_list = new FactoryMedia(data["media"])
-            console.log(media_obj_list)
             MediasFactory(media_obj_list, sort_option)
         }
         else if (data_option == "media") {
@@ -116,7 +115,6 @@ function FetchLikes() {
                 var likes_order = parseInt(element, 10)
             }
         }
-        console.log("likes_order", likes_order)
         AddLikes(likes_order)
     }))
 }
@@ -179,29 +177,18 @@ function PhotographerInfosFactory(data) {
 
 //TODO: add commentaire
 function MediasFactory(data, sort_option) {
-    console.log("data in MediasFactory :", data)
     const photographer_id = FetchID()
     const type = "likes"
     let likes = 0
     let medias_list = []
     for (var element in data) {
         if (data[element]["photographerId"] == photographer_id) {
-            var data_medias = {
-                id: data[element]["id"],
-                photographerId: data[element]["photographerId"],
-                image: data[element]["image"],
-                video: data[element]["video"],
-                description: data[element]["description"],
-                tag: data[element]["tag"],
-                likes: data[element]["likes"],
-                date: data[element]["date"],
-                price: data[element]["price"],
-            }
+            medias_list.push(data[element])
             likes += data[element]["likes"]
-        } else {
+            }
+        else {
             continue
         }
-        medias_list.push(data_medias)
     }
     //TODO: add commentaire
     AddPhotographerInfosRecap(type, likes)
@@ -210,7 +197,6 @@ function MediasFactory(data, sort_option) {
 
 //TODO: add commentaire
 function sortMedias(medias_list, sort_option) {
-    console.log("On passe bien avec pour sort ->", sort_option)
     if (sort_option == "popularité") {
         medias_list.sort(function(a, b) {
             return a.likes-b.likes
@@ -277,27 +263,38 @@ function AddPhotographerInfos(data_photographer){
 
 //TODO: add commentaire
 function AddMedias(data_medias) {
+    //.constructor.name
     RemoveMedias()
+    console.log("data_media ->", data_medias)
     const mediasSection = document.getElementById("medias_container")
-    var media_card_html = String
+
+    //AddPictureMedia()
+    //AddVideoMedia()
+    let media_card_html = ""
     for (var element in data_medias) {
         let name = String
-    if (data_medias[element]["image"]) {
-        name = data_medias[element]["image"]
-        media_card_html = '<img class="image" src="data/media_' + data_medias[element]["photographerId"] + '/' + name + '" alt="' + data_medias[element]["description"] + '">'
-    } else {
-        name = data_medias[element]["video"]
-        const regex_name = RegExp(/(\w*).mp4/)
-        const video_name = regex_name.exec(name)[1]
-        media_card_html = '<img class="video" src="data/media_' + data_medias[element]["photographerId"] + '/' + video_name + '.png" alt="' + data_medias[element]["description"] + '">'
-    }
-        let medias_card_html = '<div class="card">' +
-        '<a class="open_lightbox_modal">' + media_card_html + '</a>' +
-        '<div class="content">' +
-        '<p>' + data_medias[element]["description"] + '</p>' +
-        '<p class="like">' + data_medias[element]["price"] + '€' + data_medias[element]["likes"] + '<i class="fas fa-heart"></i></p>' +
-        '</div>' +
-        '</div>'
+        if (data_medias[element].constructor.name == "Picture") {
+            name = data_medias[element]["image"]
+            media_card_html = `<img class="image" src="data/media_${data_medias[element]["photographerId"]}/${name}" alt="${data_medias[element]["description"]}">`
+        }
+        else if (data_medias[element].constructor.name == "Video") {
+            name = data_medias[element]["video"]
+            const regex_name = RegExp(/(\w*).mp4/)
+            const video_name = regex_name.exec(name)[1]
+            media_card_html = `<img class="video" src="data/media_${data_medias[element]["photographerId"]}/${video_name}.png" alt="${data_medias[element]["description"]}">`
+        }
+
+        let medias_card_html = `<div class="card">
+        <a class="open_lightbox_modal">'${media_card_html}</a>
+        <div class="content">
+        <p>${data_medias[element]["description"]}</p>
+        <p>
+        <span>${data_medias[element]["price"]}€</span>
+        <span class="like">${data_medias[element]["likes"]}<i class="fas fa-heart"></i></span>
+        </p>
+        </div>
+        </div>`
+
         //TODO: add commentaire
         mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
     }
@@ -413,9 +410,9 @@ function AddPhotographerInfosRecap(type, data) {
 
 //TODO: add commentaire
 function AddLikes(likes_order) {
-    console.log("ON PASSE ICI")
-    const likesNumber = document.querySelectorAll('.like')
-    let media_like = ReturnMediaLikes(likesNumber[likes_order].innerText)
+    const likesNumber = document.querySelectorAll(".like")
+    let media_like = likesNumber[likes_order].innerText
+    media_like = Number(media_like) + 1
     likesNumber[likes_order].innerText = media_like
     likesNumber[likes_order].insertAdjacentHTML("beforeend", '<i class="fas fa-heart" aria-hidden="true"></i>')
 
@@ -444,13 +441,4 @@ function ReturnMediaLink(data) {
     const regex_link = RegExp(/src="([/_-\sa-zA-Z0-9]*).png"/)
     const link = regex_link.exec(data)[1]
     return link
-}
-
-//TODO: add commentaire
-function ReturnMediaLikes(data) {
-    const regex_likes = RegExp(/^(\d*€)(\d*)$/)
-    const price = regex_likes.exec(data)[1]
-    const like =  Number(regex_likes.exec(data)[2]) +1
-    let media_like = price + like
-    return media_like
 }
