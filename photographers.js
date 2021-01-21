@@ -106,7 +106,6 @@ function FetchContactForm() {
 function FetchLikes() {
     //DOM Elements
     const addLikes = document.querySelectorAll(".fa-heart")
-    console.log("addLikes ::", addLikes)
     // Events
     addLikes.forEach((link) => link.addEventListener("click", function() {
         //on passe plusieurs fois ici alors que je clique une seule fois ? Pourquoi ?
@@ -272,7 +271,7 @@ function AddMedias(data_medias) {
     //AddVideoMedia()
     let media_card_html = ""
     for (var element in data_medias) {
-        let name = String
+        let name = ""
         if (data_medias[element].constructor.name == "Picture") {
             name = data_medias[element]["image"]
             media_card_html = `<img class="image" src="data/media_${data_medias[element]["photographerId"]}/${name}" alt="${data_medias[element]["description"]}">`
@@ -283,9 +282,10 @@ function AddMedias(data_medias) {
             const video_name = regex_name.exec(name)[1]
             media_card_html = `<img class="video" src="data/media_${data_medias[element]["photographerId"]}/${video_name}.png" alt="${data_medias[element]["description"]}">`
         }
+        console.log("media_card_html", media_card_html)
 
         let medias_card_html = `<div class="card">
-        <a class="open_lightbox_modal">'${media_card_html}</a>
+        <a class="open_lightbox_modal">${media_card_html}</a>
         <div class="content">
         <p>${data_medias[element]["description"]}</p>
         <p>
@@ -308,18 +308,18 @@ function AddLightboxModal(lightboxModal, data) {
     var media_html = data.innerHTML
     if (type == "video") {
         var link = ReturnMediaLink(data.innerHTML)
-        media_html = '<video controls width="250" ><source src="' + link + '.mp4" type="video/mp4"></video>'
+        media_html = `<video controls width="250"><source src="${link}.mp4" type="video/mp4"></video>`
     }
     var media_title = ReturnAlt(data.innerHTML)
-    let modal_html = '<div class="content_modal">' +
-    '<div class="element">' +
-    '<a class="left_switch"><i class="fas fa-chevron-left"></i></a>' +
-    media_html +
-    '<a class="right_switch"><i class="fas fa-chevron-right"></i></a>' +
-    '</div>' +
-    '<p class="element_title">' + media_title + '</p>' +
-    '<button class="close_lightbox_modal"><i class="fas fa-times"></i></button>' +
-    '</div>'
+    let modal_html = `<div class="content_modal">
+    <div class="element">
+    <a class="left_switch"><i class="fas fa-chevron-left"></i></a>
+    ${media_html}
+    <a class="right_switch"><i class="fas fa-chevron-right"></i></a>
+    </div>
+    <p class="element_title">${media_title}</p>
+    <button class="close_lightbox_modal"><i class="fas fa-times"></i></button>
+    </div>`
     lightboxModal.insertAdjacentHTML("beforeend", modal_html)
     OpenLightboxModal()
 }
