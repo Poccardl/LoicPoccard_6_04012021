@@ -12,10 +12,6 @@ function FetchID() {
 
 FirstFetchEvents()
 FetchContactForm()
-
-
-
-
 FetchData("popularité", "all")
 
 //TODO: add commentaire
@@ -37,8 +33,6 @@ function FetchData(sort_option, data_option) {
     })
 }
 
-
-
 //TODO: add commentaire
 function FirstFetchEvents() {
     // DOM Elements
@@ -47,7 +41,7 @@ function FirstFetchEvents() {
     sortMedias.addEventListener("click", function () {
         FetchData(sortMedias.value, "media")
     })
-    FetchEvents("likes")
+    FetchEvents()
 }
 
 //TODO: add commentaire
@@ -61,13 +55,14 @@ function FetchEvents() {
     const closelightboxModal = document.querySelector(".close_lightbox_modal")
     // Events
     contactModal.addEventListener("click", OpenContactModal)
-    sortMedias.addEventListener("click", function () {
+    sortMedias.addEventListener("change", function () {
         FetchData(sortMedias.value, "media")
     })
     openlightboxModal.forEach((link) => link.addEventListener("click", function () {
-        for (var element in openlightboxModal) {
+        let media_order = 0
+        for (let element in openlightboxModal) {
             if (openlightboxModal[element] == link) {
-                var media_order = parseInt(element, 10)
+                media_order = parseInt(element, 10)
             }
         }
         RemoveLightboxModal()
@@ -108,20 +103,21 @@ function FetchLikes() {
     const addLikes = document.querySelectorAll(".fa-heart")
     // Events
     addLikes.forEach((link) => link.addEventListener("click", function() {
-        //on passe plusieurs fois ici alors que je clique une seule fois ? Pourquoi ?
-        for (var element in addLikes) {
+        let likes_order = 0
+        for (let element in addLikes) {
             if (addLikes[element] == link) {
-                var likes_order = parseInt(element, 10)
+                likes_order = parseInt(element, 10)
             }
         }
         AddLikes(likes_order)
     }))
 }
 
+//TODO: add commentaire
 function RemoveMedias() {
     try {
         const mediasSection = document.querySelectorAll(".card")
-        for (var element in mediasSection) {
+        for (let element in mediasSection) {
             mediasSection[element].remove()
         }
     } catch {
@@ -129,6 +125,7 @@ function RemoveMedias() {
     }
 }
 
+//TODO: add commentaire
 function RemoveLikes() {
     try {
         const likesInfos = document.getElementById("likes")
@@ -138,10 +135,11 @@ function RemoveLikes() {
     }
 }
 
+//TODO: add commentaire
 function RemoveLightboxModal() {
     try {
         const lightboxModalContent = document.querySelectorAll(".content_modal")
-        for (var element in lightboxModalContent) {
+        for (let element in lightboxModalContent) {
             lightboxModalContent[element].remove()
         }
     } catch {
@@ -149,14 +147,14 @@ function RemoveLightboxModal() {
     }
 }
 
-
 //TODO: add commentaire
 function PhotographerInfosFactory(data) {
     const photographer_id = FetchID()
     const type = "price"
-    for (var element in data) {
+    let data_photographer = []
+    for (let element in data) {
         if (data[element]["id"] == photographer_id) {
-            var data_photographer = {
+            data_photographer = {
                 name: data[element]["name"],
                 city: data[element]["city"],
                 country: data[element]["country"],
@@ -180,7 +178,7 @@ function MediasFactory(data, sort_option) {
     const type = "likes"
     let likes = 0
     let medias_list = []
-    for (var element in data) {
+    for (let element in data) {
         if (data[element]["photographerId"] == photographer_id) {
             medias_list.push(data[element])
             likes += data[element]["likes"]
@@ -203,15 +201,15 @@ function sortMedias(medias_list, sort_option) {
     }
     if (sort_option == "date") {
         medias_list.sort(function(a, b) {
-            var dateA = new Date(a.date)
-            var dateB = new Date(b.date)
+            let dateA = new Date(a.date)
+            let dateB = new Date(b.date)
             return dateA-dateB
         })
     }
     if (sort_option == "titre") {
         medias_list.sort(function(a, b) {
-            var nameA = a.description.toLowerCase()
-            var nameB = b.description.toLowerCase()
+            let nameA = a.description.toLowerCase()
+            let nameB = b.description.toLowerCase()
             if (nameA < nameB) {
                 return -1
             }
@@ -229,33 +227,27 @@ function sortMedias(medias_list, sort_option) {
 //TODO: add commentaire
 function AddPhotographerInfos(data_photographer){
     const photographerInfosSection = document.getElementById("photographer_infos_section")
-    let photographer_infos_html = '<div class="photographer_infos">' +
-    '<div>' +
-    '<h1>' + data_photographer["name"] + ' </h1>' +
-    '<p>' + data_photographer["city"] + ',' + data_photographer["country"] + '</p>' +
-    '<p>' + data_photographer["tagline"] + '</p>' +
-    '</div>' +
-    '<div>' +
-    '<img src="/data/Photographers ID Photos/' + data_photographer["portrait"] + '" alt="">' +
-    '</div>' +
-    '</div>' +
-    '<nav class="photographer_nav" role="navigation" aria-label="photographer categories">' +
-    '<ul>'
-    var photographer_tags_html = ""
-    for (var element in data_photographer["tags"]) {
+    let photographer_infos_html = `<div class="photographer_infos">
+    <div>
+    <h1>${data_photographer["name"]}</h1>
+    <p>${data_photographer["city"]}, ${data_photographer["country"]}</p>
+    <p>${data_photographer["tagline"]}</p>
+    </div>
+    <div>
+    <img src="/data/Photographers ID Photos/${data_photographer["portrait"]}" alt="">
+    </div>
+    </div>
+    <nav class="photographer_nav" role="navigation" aria-label="photographer categories">
+    <ul>`
+    let photographer_tags_html = ""
+    for (let element in data_photographer["tags"]) {
         if (data_photographer["tags"][element] != "all") {
-            photographer_tags_html = photographer_tags_html +
-            '<li class="' + data_photographer["tags"][element] + '">' +
-            '<a href="index.html?tag=' + data_photographer["tags"][element] + '">#' +
-            data_photographer["tags"][element] + '</a>' +
-            '</li>'
+            photographer_tags_html += `<li class="${data_photographer["tags"][element]}">
+            <a href="index.html?tag=${data_photographer["tags"][element]}">#${data_photographer["tags"][element]}</a>
+            </li>`
         }
     }
-    photographer_infos_html =  photographer_infos_html +
-    photographer_tags_html +
-    '</ul>' +
-    '</nav>' +
-    ''
+    photographer_infos_html += `${photographer_tags_html}</ul></nav>`
     // ajoute les infos du photographe dans le code HTML
     photographerInfosSection.insertAdjacentHTML("afterbegin", photographer_infos_html)
 }
@@ -264,13 +256,12 @@ function AddPhotographerInfos(data_photographer){
 function AddMedias(data_medias) {
     //.constructor.name
     RemoveMedias()
-    console.log("data_media ->", data_medias)
     const mediasSection = document.getElementById("medias_container")
 
     //AddPictureMedia()
     //AddVideoMedia()
     let media_card_html = ""
-    for (var element in data_medias) {
+    for (let element in data_medias) {
         let name = ""
         if (data_medias[element].constructor.name == "Picture") {
             name = data_medias[element]["image"]
@@ -304,13 +295,13 @@ function AddMedias(data_medias) {
 
 //TODO: add commentaire
 function AddLightboxModal(lightboxModal, data) {
-    var type = ReturnMediaType(data.innerHTML)
-    var media_html = data.innerHTML
+    let type = ReturnMediaType(data.innerHTML)
+    let media_html = data.innerHTML
     if (type == "video") {
-        var link = ReturnMediaLink(data.innerHTML)
+        let link = ReturnMediaLink(data.innerHTML)
         media_html = `<video controls width="250"><source src="${link}.mp4" type="video/mp4"></video>`
     }
-    var media_title = ReturnAlt(data.innerHTML)
+    let media_title = ReturnAlt(data.innerHTML)
     let modal_html = `<div class="content_modal">
     <div class="element">
     <a class="left_switch"><i class="fas fa-chevron-left"></i></a>
@@ -384,7 +375,6 @@ function RightSwitch(openlightboxModal, media_order) {
 
 //TODO: add commentaire
 function CloseContactModal() {
-    console.log("closemodal")
     const openContactModal = document.querySelector(".contact_modal")
     openContactModal.style.display = "none"
 }
@@ -400,10 +390,10 @@ function AddPhotographerInfosRecap(type, data) {
     let html = ""
     if (type == "likes") {
         RemoveLikes()
-        html = '<p id="likes">' + data + '<i class="fas fa-heart"></i></p>'
+        html = `<p id="likes">${data}<i class="fas fa-heart"></i></p>`
     }
     else if (type == "price") {
-        html = '<p>' + data + '€ / jour</p>'
+        html = `<p>${data} € / jour</p>`
     }
     infosRecap.insertAdjacentHTML("afterbegin", html)
 }
