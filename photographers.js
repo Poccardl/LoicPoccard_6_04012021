@@ -1,3 +1,7 @@
+// IMPORT //
+import FactoryMedia from "./FactoryMedia.class.js"
+
+
 //TODO: add commentaire
 function FetchID() {
     // Récupère l'id du photographe à l'aide d'une expression régulière
@@ -6,9 +10,12 @@ function FetchID() {
     return photographer_id
 }
 
-//TODO: rework code structure
 FirstFetchEvents()
 FetchContactForm()
+
+
+
+
 FetchData("popularité", "all")
 
 //TODO: add commentaire
@@ -20,13 +27,18 @@ function FetchData(sort_option, data_option) {
     .then(function(data) {
         if (data_option == "all") {
             PhotographerInfosFactory(data["photographers"])
-            MediasFactory(data["media"], sort_option)
+            let media_obj_list = new FactoryMedia(data["media"])
+            console.log(media_obj_list)
+            MediasFactory(media_obj_list, sort_option)
         }
         else if (data_option == "media") {
-            MediasFactory(data["media"], sort_option)
+            let media_obj_list = new FactoryMedia(data["media"])
+            MediasFactory(media_obj_list, sort_option)
         }
     })
 }
+
+
 
 //TODO: add commentaire
 function FirstFetchEvents() {
@@ -167,6 +179,7 @@ function PhotographerInfosFactory(data) {
 
 //TODO: add commentaire
 function MediasFactory(data, sort_option) {
+    console.log("data in MediasFactory :", data)
     const photographer_id = FetchID()
     const type = "likes"
     let likes = 0
@@ -197,6 +210,7 @@ function MediasFactory(data, sort_option) {
 
 //TODO: add commentaire
 function sortMedias(medias_list, sort_option) {
+    console.log("On passe bien avec pour sort ->", sort_option)
     if (sort_option == "popularité") {
         medias_list.sort(function(a, b) {
             return a.likes-b.likes
