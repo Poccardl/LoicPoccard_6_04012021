@@ -4,7 +4,7 @@ FetchPhotographersData(type)
 
 function FetchEvents() {
     /* Permet de récupérer les différents noeuds dans le DOM du fichier "index.html".
-    Mais aussi  d'ajouter des Events */
+    Mais aussi d'ajouter des Events */
 
     // DOM Elements
     const portailNavigation = document.querySelectorAll(".portrait")
@@ -62,7 +62,7 @@ function FilterPhotographers_events() {
 }
 
 function FetchPhotographersData(type) {
-    /* Récupère les données sur les différents photographes dans le fichier "FisheEyeDataFR.json".
+    /* Récupère les données des différents photographes dans le fichier "FisheEyeDataFR.json".
     La fonction attend un argument non optionnel -> type(String) */
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
@@ -79,7 +79,7 @@ function FetchPhotographersData(type) {
 }
 
 function PhotographersFactory(data, type) {
-    /* Créer un dictionnaire data_photographers{} pour ensuite appeler la function  AddPhotographersCards() en lui donnant data_photographers{} en paramètre
+    /* Créer un dictionnaire data_photographers{} pour ensuite appeler la function AddPhotographersCards() en lui donnant data_photographers{} en paramètre
     La fonction attend deux arguments non optionnel -> data{} et type(String) */
     let data_photographers = {}
     for (let element in data) {
