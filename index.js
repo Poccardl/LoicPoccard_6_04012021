@@ -82,7 +82,7 @@ function AddPhotographersCards(data_photographers) {
     '<a class="photographers_link" href="photographers-page.html?id=' + data_photographers["id"] + '"><img src="data/Photographers ID Photos/' + data_photographers["portrait"] + '" alt="" class="photographers_pp"></a>' +
     '<h2>' + data_photographers["name"] + '</h2>' +
     '<div class="content">' +
-    '<h4>' + data_photographers["city"] + ', ' + data_photographers["country"] + '</h4>' +
+    '<p class="location">' + data_photographers["city"] + ', ' + data_photographers["country"] + '<p>' +
     '<p>' + data_photographers["tagline"] + '</p>' +
     '<p>' + data_photographers["price"] + '€/jour</p>' +
     '<nav class="index_nav" role="navigation" aria-label="photographer categories">' +

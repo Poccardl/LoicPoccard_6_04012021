@@ -301,7 +301,7 @@ function AddLightboxModal(lightboxModal, data) {
         media_html = `<video controls width="250"><source src="${link}.mp4" type="video/mp4"></video>`
     }
     let media_title = ReturnAlt(data.innerHTML)
-    let modal_html = `<div class="content_modal">
+    let modal_html = `<div class="content_modal" aria-label="image closeup view">
     <div class="element">
     <a class="left_switch"><i class="fas fa-chevron-left"></i></a>
     ${media_html}
