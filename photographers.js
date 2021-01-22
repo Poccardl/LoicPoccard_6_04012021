@@ -169,6 +169,7 @@ function PhotographerInfosFactory(data) {
         }
     }
     //TODO: add commentaire
+    AddPhotographerNameOnContactModal(data_photographer["name"])
     AddPhotographerInfosRecap(type, data_photographer["price"])
 }
 
@@ -273,8 +274,6 @@ function AddMedias(data_medias) {
             const video_name = regex_name.exec(name)[1]
             media_card_html = `<img class="video" src="data/media_${data_medias[element]["photographerId"]}/${video_name}.png" alt="${data_medias[element]["description"]}">`
         }
-        console.log("media_card_html", media_card_html)
-
         let medias_card_html = `<div class="card">
         <a class="open_lightbox_modal">${media_card_html}</a>
         <div class="content">
@@ -314,6 +313,13 @@ function AddLightboxModal(lightboxModal, data) {
     lightboxModal.insertAdjacentHTML("beforeend", modal_html)
     OpenLightboxModal()
 }
+
+//TODO: addd commentaire
+function AddPhotographerNameOnContactModal(photographer_name) {
+    const contactModalTitle = document.querySelector(".contact_modal_title")
+    contactModalTitle.insertAdjacentHTML("beforeend", `<br>${photographer_name}`)
+}
+
 
 //TODO: add commentaire
 function OpenContactModal() {
