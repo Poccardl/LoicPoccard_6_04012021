@@ -3,7 +3,7 @@ let type = FetchTag()
 FetchPhotographersData(type)
 
 function FetchEvents() {
-    /* Permet de récupérer les différents noeuds dans le DOM du fichier "index.html".
+    /* Récupère les différents noeuds dans le DOM du fichier "index.html"
     Mais aussi d'ajouter des Events */
 
     // DOM Elements
@@ -35,7 +35,7 @@ function FetchTag() {
     return photographer_tag
 }
 
-/* Permet de définir quelles photographes afficher en fonction du tag sélectionné */
+/* Définit le tag sélectionné */
 function FilterPhotographers_portrait() {
     FetchPhotographersData("portrait")
 }
@@ -79,7 +79,7 @@ function FetchPhotographersData(type) {
 }
 
 function PhotographersFactory(data, type) {
-    /* Créer un dictionnaire data_photographers{} pour ensuite appeler la function AddPhotographersCards() en lui donnant data_photographers{} en paramètre
+    /* Récupère les informations du photographe
     La fonction attend deux arguments non optionnel -> data{} et type(String) */
     let data_photographers = {}
     for (let element in data) {
@@ -147,7 +147,7 @@ function RemovePhotographers() {
 }
 
 function ScrollLink() {
-    /* Permet d'afficher le button "Passer au contenu" lors d'un scroll vers le bas de la page index.html */
+    /* Affiche le button "Passer au contenu" lors d'un scroll vers le bas de la page index.html */
     const scrollLink = document.querySelector(".dynamic_display")
     if (window.scrollY > 20) {
         scrollLink.style.display = "block"
