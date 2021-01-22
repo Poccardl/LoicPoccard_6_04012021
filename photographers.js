@@ -239,7 +239,7 @@ function AddPhotographerInfos(data_photographer){
     <p>${data_photographer["tagline"]}</p>
     </div>
     <div>
-    <img src="/data/Photographers_ID_Photos/${data_photographer["portrait"]}" alt="">
+    <img src="data/Photographers_ID_Photos/${data_photographer["portrait"]}" alt="">
     </div>
     </div>
     <nav class="photographer_nav" role="navigation" aria-label="photographer categories">
