@@ -138,7 +138,7 @@ function RemovePhotographers() {
     /* Supprime les cartes des photographes du code html */
     try {
         const photographersSection = document.querySelectorAll(".card")
-        for (var element in photographersSection) {
+        for (let element in photographersSection) {
             photographersSection[element].remove()
         }
     } catch {

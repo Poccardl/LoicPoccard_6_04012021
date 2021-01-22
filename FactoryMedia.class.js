@@ -3,7 +3,7 @@ import Video from "./Video.class.js"
 
 export default class FactoryMedia {
     constructor(media) {
-        var MediaObjList = []
+        let MediaObjList = []
         for (let element in media) {
             if (media[element]["image"]) {
                 let blabla = new Picture(media[element])
