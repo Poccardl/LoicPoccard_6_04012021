@@ -108,7 +108,7 @@ function AddPhotographersCards(data_photographers) {
     La fonction attend un argument non optionnel -> data_photographers{} */
     const photographersSection = document.getElementById("photographer_section")
     let photographers_card_html = `<div class="card">
-    <a class="photographers_link" href="photographers-page.html?id=${data_photographers["id"]}"><img src="data/Photographers ID Photos/${data_photographers["portrait"]}" alt="" class="photographers_pp"></a>
+    <a class="photographers_link" href="photographers-page.html?id=${data_photographers["id"]}"><img src="data/Photographers_ID_Photos/${data_photographers["portrait"]}" alt="" class="photographers_pp"></a>
     <h2>${data_photographers["name"]}</h2>
     <div class="content">
     <p class="location">${data_photographers["city"]},${data_photographers["country"]}<p>
