@@ -1,6 +1,14 @@
 FetchEvents()
 let type = FetchTag()
 FetchPhotographersData(type)
+
+//TODO: add commentaire
+document.addEventListener("keyup", function(e) {
+    if (e.key == "Enter") {
+        e.target.click()
+    }
+})
+
 function FetchEvents() {
     /* Récupère les différents noeuds dans le DOM du fichier "index.html"
     Mais aussi d'ajouter des Events */

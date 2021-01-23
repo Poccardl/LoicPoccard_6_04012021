@@ -5,6 +5,33 @@ FirstFetchEvents()
 FetchData("popularité", "all")
 
 //TODO: add commentaire
+document.addEventListener("keyup", function(e) {
+    if (e.key == "Enter") {
+        e.target.click()
+    }
+    else if (e.key == "Escape" || e.key == "Esc") {
+        CloseContactModal()
+        CloseLightboxModal()
+        RemoveLightboxModal()
+    }
+    else if (e.key === "ArrowLeft" ) {
+        try {
+            const leftSwitch  = document.querySelector(".left_switch")
+            leftSwitch.click()
+        } catch {
+            //
+        }
+    }
+    else if (e.key === "ArrowRight" ) {
+        try {
+            const rightSwitch  = document.querySelector(".right_switch")
+            rightSwitch.click()
+        } catch {
+            //
+        }
+    }
+})
+
 function FetchData(sort_option, data_option) {
     /* Récupère les données des différents photographes dans le fichier "FisheEyeDataFR.json" et créer un objet pour chaque médias en utilisant le Factory Pattern avec MediasFactory(class).
     La fonction attend deux arguments non optionnel -> sort_option(String) et data_option(String) */
@@ -82,9 +109,7 @@ function FetchEvents() {
     }));
     try {
         closeContactModal.addEventListener("click", CloseContactModal)
-        closelightboxModal.addEventListener("click", function () {
-            CloseLightboxModal()
-        })
+        closelightboxModal.addEventListener("click", CloseLightboxModal)
     } catch {
         //
     }
@@ -267,13 +292,13 @@ function AddMedias(data_medias) {
     for (let element in data_medias) {
         if (data_medias[element].constructor.name == "Picture") {
             name = data_medias[element]["image"]
-            media_tag_html = `<img class="image" src="data/media_${data_medias[element]["photographerId"]}/${name}" alt="${data_medias[element]["description"]}">`
+            media_tag_html = `<img class="image" src="data/media_${data_medias[element]["photographerId"]}/${name}" alt="${data_medias[element]["description"]}" tabindex="0">`
         }
         else if (data_medias[element].constructor.name == "Video") {
             name = data_medias[element]["video"]
             const regex_name = RegExp(/(\w*).mp4/)
             const video_name = regex_name.exec(name)[1]
-            media_tag_html = `<img class="video" src="data/media_${data_medias[element]["photographerId"]}/${video_name}.png" alt="${data_medias[element]["description"]}">`
+            media_tag_html = `<img class="video" src="data/media_${data_medias[element]["photographerId"]}/${video_name}.png" alt="${data_medias[element]["description"]}" tabindex="0">`
         }
         medias_card_html = `<div class="card">
         <a class="open_lightbox_modal">${media_tag_html}</a>
@@ -281,7 +306,7 @@ function AddMedias(data_medias) {
         <p>${data_medias[element]["description"]}</p>
         <p>
         <span>${data_medias[element]["price"]}€</span>
-        <span class="like">${data_medias[element]["likes"]}<i class="fas fa-heart"></i></span>
+        <span class="like">${data_medias[element]["likes"]}<i class="fas fa-heart" tabindex="0"></i></span>
         </p>
         </div>
         </div>`
