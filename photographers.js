@@ -10,7 +10,6 @@ document.addEventListener("keyup", function(e) {
         e.target.click()
     }
     else if (e.key == "Escape" || e.key == "Esc") {
-        CloseContactModal()
         CloseLightboxModal()
         RemoveLightboxModal()
     }
@@ -383,6 +382,31 @@ function OpenContactModal() {
     const openContactModal = document.querySelector(".contact_modal")
     openContactModal.style.display = "flex"
     FetchEvents()
+    FocusContactModal()
+}
+
+//TODO: add commentaire
+function FocusContactModal() {
+    let focusableSelector = "span, input"
+    let focusables = []
+    focusables = Array.from(document.querySelectorAll(`.contact_modal ${focusableSelector}`))
+    let focusable_index = 1
+    focusables[focusable_index].focus()
+    document.addEventListener("keyup", function keyup(e) {
+        if (e.key == "Tab") {
+            focusable_index ++
+        }
+        if (focusable_index === focusables.length) {
+            console.log("On reset focusable_index à -> 1")
+            focusable_index = 1
+            focusables[focusable_index].focus()
+        }
+        if (e.key == "Escape" || e.key == "Esc") {
+            CloseContactModal()
+            document.body.removeEventListener('keyup', keyup);
+            focusables = []
+        }
+    })
 }
 
 function OpenLightboxModal() {
