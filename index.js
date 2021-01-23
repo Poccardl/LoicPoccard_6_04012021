@@ -1,7 +1,6 @@
 FetchEvents()
 let type = FetchTag()
 FetchPhotographersData(type)
-
 function FetchEvents() {
     /* Récupère les différents noeuds dans le DOM du fichier "index.html"
     Mais aussi d'ajouter des Events */
@@ -18,14 +17,14 @@ function FetchEvents() {
 
     // Events
     window.addEventListener("scroll", ScrollLink)
-    portailNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_portrait));
-    artNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_art));
-    fashionNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_fashion));
-    architectureNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_architecture));
-    travelNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_travel));
-    sportNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_sport));
-    animalsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_animals));
-    eventsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_events));
+    portailNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_portrait))
+    artNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_art))
+    fashionNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_fashion))
+    architectureNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_architecture))
+    travelNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_travel))
+    sportNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_sport))
+    animalsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_animals))
+    eventsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_events))
 }
 
 function FetchTag() {
@@ -120,17 +119,10 @@ function AddPhotographersCards(data_photographers) {
     let photographers_tags_html = ""
     for (let element in data_photographers["tags"]) {
         if (data_photographers["tags"][element] != "all") {
-            photographers_tags_html = photographers_tags_html +
-            '<li class="' + data_photographers["tags"][element] + '">#' +
-            data_photographers["tags"][element] +
-            '</li>'
+            photographers_tags_html += `<li class="${data_photographers["tags"][element]}" tabindex="0">#${data_photographers["tags"][element]}</li>`
         }
     }
-    photographers_card_html += `${photographers_tags_html}
-    </ul>
-    </nav>
-    </div>
-    </div>`
+    photographers_card_html += `${photographers_tags_html}</ul></nav></div></div>`
     photographersSection.insertAdjacentHTML("afterbegin", photographers_card_html)
 }
 
