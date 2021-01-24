@@ -3,8 +3,8 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 70%;
     @include laptop {
+        max-width: 70%;
         flex-direction: row;
     }
     color: $color-primary;

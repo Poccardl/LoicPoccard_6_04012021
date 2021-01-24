@@ -7,15 +7,26 @@
     }
     .card {
         margin: 20px;
+        text-align: center;
         @include laptop {
             width: 30%;
         }
-        text-align: center;
+        p {
+            margin: 2px 0px 2px 0px;
+        }
+        ul {
+            margin: 2px 0px 2px 0px;
+        }
         h2 {
+            margin-bottom: 10px;
+            font-size: 30px;
             color: $color-secondary;
         }
         .location {
             color: $color-primary;
+        }
+        .price {
+            color: #cacaca;
         }
     }
 }
