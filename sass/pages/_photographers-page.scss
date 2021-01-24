@@ -1,9 +1,22 @@
+main {
+    padding: 0% 5% 0% 5%;
+}
 #photographer_infos_section {
     position: relative;
     width: 100%;
     .photographer_infos {
         display: flex;
+        justify-content: center;
         margin: 0px 10px 0px 10px;
+        p {
+            margin: 0px 2px 0px 2px;
+        }
+        .location {
+            color: $color-primary;
+        }
+        .tagline {
+            color: #cacaca;
+        }
         @include laptop {
             margin: 20px;
             justify-content: space-between;

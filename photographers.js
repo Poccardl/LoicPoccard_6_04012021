@@ -259,8 +259,8 @@ function AddPhotographerInfos(data_photographer){
     let photographer_infos_html = `<div class="photographer_infos">
     <div>
     <h1>${data_photographer["name"]}</h1>
-    <p>${data_photographer["city"]}, ${data_photographer["country"]}</p>
-    <p>${data_photographer["tagline"]}</p>
+    <p class="location">${data_photographer["city"]}, ${data_photographer["country"]}</p>
+    <p class="tagline">${data_photographer["tagline"]}</p>
     </div>
     <div>
     <img src="data/Photographers_ID_Photos/${data_photographer["portrait"]}" alt="">
@@ -322,7 +322,7 @@ function AddPhotographerInfosRecap(type, number) {
     let html = ""
     if (type == "likes") {
         RemoveLikes()
-        html = `<p id="likes">${number}<i class="fas fa-heart"></i></p>`
+        html = `<p id="likes">${number} <i class="fas fa-heart"></i></p>`
     }
     else if (type == "price") {
         html = `<p>${number} € / jour</p>`

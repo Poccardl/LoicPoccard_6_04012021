@@ -2,6 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
     @include laptop {
         flex-direction: row;
     }
@@ -18,6 +21,10 @@
             @include laptop {
                 height: 250px;
                 width: 250px;
+            }
+            @include desktop {
+                height: 350px;
+                width: 350px;
             }
         }
         .content {
