@@ -4,7 +4,7 @@ import FactoryMedia from "./FactoryMedia.class.js"
 FirstFetchEvents()
 FetchData("popularité", "all")
 
-//TODO: add commentaire
+// Écoute la pression des touches du clavier pour permettre la navigation avec celui-ci
 document.addEventListener("keyup", function(e) {
     if (e.key == "Enter") {
         e.target.click()
@@ -403,7 +403,6 @@ function FocusContactModal() {
         }
         if (e.key == "Escape" || e.key == "Esc") {
             CloseContactModal()
-            document.body.removeEventListener('keyup', keyup);
             focusables = []
         }
     })
