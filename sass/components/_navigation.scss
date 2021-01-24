@@ -25,6 +25,9 @@
 .photographer_nav {
     font-size: 14px;
     margin-left: 15px;
+    @include laptop {
+        margin-left: 10px;
+    }
     ul {
         display: flex;
         flex-wrap: wrap;

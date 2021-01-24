@@ -1,3 +1,6 @@
+main {
+    position: relative;
+}
 #contact {
     position: fixed;
     bottom: 20px;
@@ -10,9 +13,9 @@
     cursor: pointer;
     @include laptop {
         position: absolute;
-        top: 10%;
+        top: 20px;
         bottom: auto;
-        left: 400px;
+        left: 30%;
         padding: 20px;
     }
     &:hover {
