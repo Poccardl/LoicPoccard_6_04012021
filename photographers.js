@@ -57,7 +57,7 @@ function FirstFetchEvents() {
 
     // DOM Elements
     const sortMedias = document.getElementById("sort_medias")
-    const formData = document.querySelectorAll(".formData input");
+    const formData = document.querySelectorAll(".formData input, textarea");
 
     // Events
     sortMedias.addEventListener("click", function () {
@@ -354,7 +354,7 @@ function AddLightboxModal(data) {
     let media_html = data.innerHTML
     if (type == "video") {
         let link = ReturnMediaLink(data.innerHTML)
-        media_html = `<video controls width="250"><source src="${link}.mp4" type="video/mp4"></video>`
+        media_html = `<video controls width="600"><source src="${link}.mp4" type="video/mp4"></video>`
     }
     let media_title = ReturnAlt(data.innerHTML)
     let modal_html = `<div class="content_modal" aria-label="image closeup view">
@@ -397,7 +397,6 @@ function FocusContactModal() {
             focusable_index ++
         }
         if (focusable_index === focusables.length) {
-            console.log("On reset focusable_index à -> 1")
             focusable_index = 1
             focusables[focusable_index].focus()
         }

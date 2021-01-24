@@ -9,6 +9,7 @@ header {
     }
     color: $color-primary;
     .dynamic_display {
+        z-index: 1;
         position: fixed;
         left: calc(50% - 60.8px);
         padding: 2px;
@@ -28,11 +29,11 @@ main {
         color: $color-primary;
         font-size: 14px;
         position: absolute;
-        top: 20px;
+        top: -140px;
         right: 15px;
         @include tablet {
             font-size: 32px;
-            top: -5px;
+            top: -75px;
         }
     }
 }
