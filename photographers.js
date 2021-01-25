@@ -354,7 +354,7 @@ function AddLightboxModal(data) {
     let media_html = data.innerHTML
     if (type == "video") {
         let link = ReturnMediaLink(data.innerHTML)
-        media_html = `<video controls width="600"><source src="${link}.mp4" type="video/mp4"></video>`
+        media_html = `<video controls><source src="${link}.mp4" type="video/mp4"></video>`
     }
     let media_title = ReturnAlt(data.innerHTML)
     let modal_html = `<div class="content_modal" aria-label="image closeup view">

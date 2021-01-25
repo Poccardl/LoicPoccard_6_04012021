@@ -24,6 +24,12 @@
                 width: 50%;
                 object-fit: contain;
             }
+            video {
+                width: 200px;
+                @include laptop {
+                    width: 600px;
+                }
+            }
             .left_switch {
                 width: 25%;
                 font-size: 26px;
