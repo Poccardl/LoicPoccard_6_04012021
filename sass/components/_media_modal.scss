@@ -15,9 +15,6 @@
         @include laptop {
             top: 0%;
         }
-        @include desktop {
-            top: 10%
-        }
         .element {
             margin: 5% auto;
             display: flex;
