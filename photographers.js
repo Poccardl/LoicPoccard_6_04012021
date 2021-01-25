@@ -305,7 +305,7 @@ function AddMedias(data_medias) {
         <p>${data_medias[element]["description"]}</p>
         <p>
         <span>${data_medias[element]["price"]}€</span>
-        <span class="like">${data_medias[element]["likes"]}<i class="fas fa-heart" tabindex="0"></i></span>
+        <span class="like" aria-label="likes">${data_medias[element]["likes"]}<i class="fas fa-heart" tabindex="0"></i></span>
         </p>
         </div>
         </div>`
