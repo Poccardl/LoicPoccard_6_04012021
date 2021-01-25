@@ -11,6 +11,10 @@
         background-color: white;
         position: relative;
         width: 100%;
+        top: 30%;
+        @include laptop {
+            top: 15%;
+        }
         .element {
             margin: 5% auto;
             display: flex;
