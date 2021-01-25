@@ -396,7 +396,7 @@ function FocusContactModal() {
         if (e.key == "Tab") {
             focusable_index ++
         }
-        if (focusable_index === focusables.length) {
+        if (focusable_index === focusables.length +1) {
             focusable_index = 1
             focusables[focusable_index].focus()
         }
