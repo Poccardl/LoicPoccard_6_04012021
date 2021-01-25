@@ -13,7 +13,10 @@
         width: 100%;
         top: 30%;
         @include laptop {
-            top: 10%;
+            top: 0%;
+        }
+        @include desktop {
+            top: 10%
         }
         .element {
             margin: 5% auto;
