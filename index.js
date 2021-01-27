@@ -142,7 +142,7 @@ function RemovePhotographers() {
             photographersSection[element].remove()
         }
     } catch {
-        //
+        console.log("code error: remove photographersSection")
     }
 }
 

@@ -1,6 +1,7 @@
 import Picture from "./Picture.class.js"
 import Video from "./Video.class.js"
 
+//TODO: rename blabla, blibli
 export default class FactoryMedia {
     constructor(media) {
         let MediaObjList = []

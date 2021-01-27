@@ -18,7 +18,7 @@ document.addEventListener("keyup", function(e) {
             const leftSwitch  = document.querySelector(".left_switch")
             leftSwitch.click()
         } catch {
-            //
+            console.log("code error: leftSwitch")
         }
     }
     else if (e.key === "ArrowRight" ) {
@@ -26,7 +26,7 @@ document.addEventListener("keyup", function(e) {
             const rightSwitch  = document.querySelector(".right_switch")
             rightSwitch.click()
         } catch {
-            //
+            console.log("code error: rightSwitch")
         }
     }
 })
@@ -110,7 +110,7 @@ function FetchEvents() {
         closeContactModal.addEventListener("click", CloseContactModal)
         closelightboxModal.addEventListener("click", CloseLightboxModal)
     } catch {
-        //
+        console.log("code error: closeModal")
     }
 }
 
@@ -147,7 +147,7 @@ function RemoveMedias() {
             mediasSection[element].remove()
         }
     } catch {
-        //
+        console.log("code error: remove mediasSection")
     }
 }
 
@@ -157,7 +157,7 @@ function RemoveLikes() {
         const likesInfos = document.getElementById("likes")
         likesInfos.remove()
     } catch {
-        //
+        console.log("code error: remove likesInfos")
     }
 }
 
@@ -169,7 +169,7 @@ function RemoveLightboxModal() {
             lightboxModalContent[element].remove()
         }
     } catch {
-        //
+        console.log("code error: remove lightboxModalContent")
     }
 }
 
