@@ -1,6 +1,6 @@
-FetchEvents()
-let type = FetchTag()
-FetchPhotographersData(type)
+fetchEvents()
+let type = fetchTag()
+fetchPhotographersData(type)
 
 // Écoute les pressions du clavier
 document.addEventListener("keyup", function(e) {
@@ -9,7 +9,7 @@ document.addEventListener("keyup", function(e) {
     }
 })
 
-function FetchEvents() {
+function fetchEvents() {
     /* Récupère les différents noeuds dans le DOM du fichier "index.html"
     Mais aussi d'ajouter des Events */
 
@@ -24,18 +24,18 @@ function FetchEvents() {
     const eventsNavigation = document.querySelectorAll(".events")
 
     // Events
-    window.addEventListener("scroll", ScrollLink)
-    portailNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_portrait))
-    artNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_art))
-    fashionNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_fashion))
-    architectureNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_architecture))
-    travelNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_travel))
-    sportNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_sport))
-    animalsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_animals))
-    eventsNavigation.forEach((link) => link.addEventListener("click", FilterPhotographers_events))
+    window.addEventListener("scroll", scrollLink)
+    portailNavigation.forEach((link) => link.addEventListener("click", filterPhotographersPortrait))
+    artNavigation.forEach((link) => link.addEventListener("click", filterPhotographersArt))
+    fashionNavigation.forEach((link) => link.addEventListener("click", filterPhotographersFashion))
+    architectureNavigation.forEach((link) => link.addEventListener("click", filterPhotographersArchitecture))
+    travelNavigation.forEach((link) => link.addEventListener("click", filterPhotographersTravel))
+    sportNavigation.forEach((link) => link.addEventListener("click", filterPhotographersSport))
+    animalsNavigation.forEach((link) => link.addEventListener("click", filterPhotographersAnimals))
+    eventsNavigation.forEach((link) => link.addEventListener("click", filterPhotographersEvents))
 }
 
-function FetchTag() {
+function fetchTag() {
     /* Récupère le tag des photographes à afficher à l'aide d'une expression régulière */
     const regex_tag = RegExp(/\w{0,}$/)
     const photographer_tag = regex_tag.exec(document.URL)[0]
@@ -43,32 +43,32 @@ function FetchTag() {
 }
 
 /* Définit le tag sélectionné */
-function FilterPhotographers_portrait() {
-    FetchPhotographersData("portrait")
+function filterPhotographersPortrait() {
+    fetchPhotographersData("portrait")
 }
-function FilterPhotographers_art() {
-    FetchPhotographersData("art")
+function filterPhotographersArt() {
+    fetchPhotographersData("art")
 }
-function FilterPhotographers_fashion() {
-    FetchPhotographersData("fashion")
+function filterPhotographersFashion() {
+    fetchPhotographersData("fashion")
 }
-function FilterPhotographers_architecture() {
-    FetchPhotographersData("architecture")
+function filterPhotographersArchitecture() {
+    fetchPhotographersData("architecture")
 }
-function FilterPhotographers_travel() {
-    FetchPhotographersData("travel")
+function filterPhotographersTravel() {
+    fetchPhotographersData("travel")
 }
-function FilterPhotographers_sport() {
-    FetchPhotographersData("sport")
+function filterPhotographersSport() {
+    fetchPhotographersData("sport")
 }
-function FilterPhotographers_animals() {
-    FetchPhotographersData("animals")
+function filterPhotographersAnimals() {
+    fetchPhotographersData("animals")
 }
-function FilterPhotographers_events() {
-    FetchPhotographersData("events")
+function filterPhotographersEvents() {
+    fetchPhotographersData("events")
 }
 
-function FetchPhotographersData(type) {
+function fetchPhotographersData(type) {
     /* Récupère les données des différents photographes dans le fichier "FisheEyeDataFR.json".
     La fonction attend un argument non optionnel -> type(String) */
     fetch("./data/FishEyeDataFR.json")
@@ -79,13 +79,13 @@ function FetchPhotographersData(type) {
         if (type == "html") {
             type = "all"
         }
-        RemovePhotographers()
-        PhotographersFactory(data["photographers"], type)
-        FetchEvents()
+        removePhotographers()
+        photographersFactory(data["photographers"], type)
+        fetchEvents()
     })
 }
 
-function PhotographersFactory(data, type) {
+function photographersFactory(data, type) {
     /* Récupère les informations du photographe
     La fonction attend deux arguments non optionnel -> data{} et type(String) */
     let data_photographers = {}
@@ -106,11 +106,11 @@ function PhotographersFactory(data, type) {
         else {
             continue
         }
-        AddPhotographersCards(data_photographers)
+        addPhotographersCards(data_photographers)
     }
 }
 
-function AddPhotographersCards(data_photographers) {
+function addPhotographersCards(data_photographers) {
     /* Ajoute les cartes html des différents photographes à la page index.html
     La fonction attend un argument non optionnel -> data_photographers{} */
     const photographersSection = document.getElementById("photographer_section")
@@ -134,7 +134,7 @@ function AddPhotographersCards(data_photographers) {
     photographersSection.insertAdjacentHTML("afterbegin", photographers_card_html)
 }
 
-function RemovePhotographers() {
+function removePhotographers() {
     /* Supprime les cartes des photographes du code html */
     try {
         const photographersSection = document.querySelectorAll(".card")
@@ -146,12 +146,12 @@ function RemovePhotographers() {
     }
 }
 
-function ScrollLink() {
+function scrollLink() {
     /* Affiche le button "Passer au contenu" lors d'un scroll vers le bas de la page index.html */
-    const scrollLink = document.querySelector(".dynamic_display")
+    const dynamicDisplay = document.querySelector(".dynamic_display")
     if (window.scrollY > 20) {
-        scrollLink.style.display = "block"
+        dynamicDisplay.style.display = "block"
     } else {
-        scrollLink.style.display = "none"
+        dynamicDisplay.style.display = "none"
     }
 }

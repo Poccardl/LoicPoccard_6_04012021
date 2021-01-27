@@ -1,8 +1,8 @@
 // IMPORT //
 import FactoryMedia from "./FactoryMedia.class.js"
 
-FirstFetchEvents()
-FetchData("popularité", "all")
+firstFetchEvents()
+fetchData("popularité", "all")
 
 // Écoute la pression des touches du clavier pour permettre la navigation avec celui-ci
 document.addEventListener("keyup", function(e) {
@@ -10,29 +10,29 @@ document.addEventListener("keyup", function(e) {
         e.target.click()
     }
     else if (e.key == "Escape" || e.key == "Esc") {
-        CloseLightboxModal()
-        RemoveLightboxModal()
+        closeLightboxModal()
+        removeLightboxModal()
     }
     else if (e.key === "ArrowLeft" ) {
         try {
-            const leftSwitch  = document.querySelector(".left_switch")
-            leftSwitch.click()
+            const leftS  = document.querySelector(".left_switch")
+            leftS.click()
         } catch {
-            console.log("code error: leftSwitch")
+            console.log("code error: leftS")
         }
     }
     else if (e.key === "ArrowRight" ) {
         try {
-            const rightSwitch  = document.querySelector(".right_switch")
-            rightSwitch.click()
+            const rightS  = document.querySelector(".right_switch")
+            rightS.click()
         } catch {
-            console.log("code error: rightSwitch")
+            console.log("code error: rightS")
         }
     }
 })
 
-function FetchData(sort_option, data_option) {
-    /* Récupère les données des différents photographes dans le fichier "FisheEyeDataFR.json" et créer un objet pour chaque médias en utilisant le Factory Pattern avec MediasFactory(class).
+function fetchData(sort_option, data_option) {
+    /* Récupère les données des différents photographes dans le fichier "FisheEyeDataFR.json" et créer un objet pour chaque médias en utilisant le Factory Pattern avec mediasFactory(class).
     La fonction attend deux arguments non optionnel -> sort_option(String) et data_option(String) */
     fetch("./data/FishEyeDataFR.json")
     .then(function(resp) {
@@ -40,18 +40,18 @@ function FetchData(sort_option, data_option) {
     })
     .then(function(data) {
         if (data_option == "all") {
-            PhotographerInfosFactory(data["photographers"])
+            photographerInfosFactory(data["photographers"])
             let media_obj_list = new FactoryMedia(data["media"])
-            MediasFactory(media_obj_list, sort_option)
+            mediasFactory(media_obj_list, sort_option)
         }
         else if (data_option == "media") {
             let media_obj_list = new FactoryMedia(data["media"])
-            MediasFactory(media_obj_list, sort_option)
+            mediasFactory(media_obj_list, sort_option)
         }
     })
 }
 
-function FirstFetchEvents() {
+function firstFetchEvents() {
     /* Permet de récupérer les différents noeuds existant dans le DOM du fichier "index.html".
     Mais aussi d'ajouter des Events */
 
@@ -61,29 +61,29 @@ function FirstFetchEvents() {
 
     // Events
     sortMedias.addEventListener("click", function () {
-        FetchData(sortMedias.value, "media")
+        fetchData(sortMedias.value, "media")
     })
     formData.forEach((input) => input.addEventListener("change", function() {
         console.log("formData", input.id, ':', input.value)
     }))
-    FetchEvents()
+    fetchEvents()
 }
 
-function FetchEvents() {
+function fetchEvents() {
     /* Permet de récupérer les différents noeuds existant ainsi que ceux ajouter dynamiquement dans le DOM du fichier "index.html".
     Mais aussi d'ajouter des Events */
 
     // DOM Elements
-    const contactModal = document.getElementById("contact")
-    const closeContactModal = document.querySelector(".close")
+    const contact = document.getElementById("contact")
+    const closecontactModal = document.querySelector(".close")
     const sortMedias = document.getElementById("sort_medias")
     const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
     const closelightboxModal = document.querySelector(".close_lightbox_modal")
 
     // Events
-    contactModal.addEventListener("click", OpenContactModal)
+    contact.addEventListener("click", openContactModal)
     sortMedias.addEventListener("change", function () {
-        FetchData(sortMedias.value, "media")
+        fetchData(sortMedias.value, "media")
     })
     openlightboxModal.forEach((link) => link.addEventListener("click", function () {
         let media_order = 0
@@ -92,54 +92,54 @@ function FetchEvents() {
                 media_order = parseInt(element, 10)
             }
         }
-        RemoveLightboxModal()
-        AddLightboxModal(link)
+        removeLightboxModal()
+        addLightboxModal(link)
         if (media_order == 0) {
-            LeftSwitch(openlightboxModal.length -1)
-            RightSwitch(media_order +1)
+            leftSwitch(openlightboxModal.length -1)
+            rightSwitch(media_order +1)
         }
         else if (media_order == openlightboxModal.length -1) {
-            LeftSwitch(media_order -1)
-            RightSwitch(0)
+            leftSwitch(media_order -1)
+            rightSwitch(0)
         } else {
-            LeftSwitch(media_order -1)
-            RightSwitch(media_order +1)
+            leftSwitch(media_order -1)
+            rightSwitch(media_order +1)
         }
     }));
     try {
-        closeContactModal.addEventListener("click", CloseContactModal)
-        closelightboxModal.addEventListener("click", CloseLightboxModal)
+        closecontactModal.addEventListener("click", closeContactModal)
+        closelightboxModal.addEventListener("click", closeLightboxModal)
     } catch {
         console.log("code error: closeModal")
     }
 }
 
-function FetchID() {
+function fetchID() {
     /* Récupère l'id du photographe à l'aide d'une expression régulière */
     const regex_id = RegExp(/\d{0,3}$/)
     const photographer_id = regex_id.exec(document.URL)[0]
     return photographer_id
 }
 
-function FetchLikes() {
+function fetchLikes() {
     /* Récupère le nombre de like pour chaque médias */
 
-    //DOM Elements
-    const addLikes = document.querySelectorAll(".fa-heart")
+    // DOM Elements
+    const addLike = document.querySelectorAll(".fa-heart")
 
     // Events
-    addLikes.forEach((link) => link.addEventListener("click", function() {
+    addLike.forEach((link) => link.addEventListener("click", function() {
         let likes_order = 0
-        for (let element in addLikes) {
-            if (addLikes[element] == link) {
+        for (let element in addLike) {
+            if (addLike[element] == link) {
                 likes_order = parseInt(element, 10)
             }
         }
-        AddLikes(likes_order)
+        addLikes(likes_order)
     }))
 }
 
-function RemoveMedias() {
+function removeMedias() {
     /* Supprime les cartes des médias */
     try {
         const mediasSection = document.querySelectorAll(".card")
@@ -151,7 +151,7 @@ function RemoveMedias() {
     }
 }
 
-function RemoveLikes() {
+function removeLikes() {
     /* Supprime les likes de la section photographer_infos_recap */
     try {
         const likesInfos = document.getElementById("likes")
@@ -161,7 +161,7 @@ function RemoveLikes() {
     }
 }
 
-function RemoveLightboxModal() {
+function removeLightboxModal() {
     /* Supprime le contenue de la lightbox_modal */
     try {
         const lightboxModalContent = document.querySelectorAll(".content_modal")
@@ -173,10 +173,10 @@ function RemoveLightboxModal() {
     }
 }
 
-function PhotographerInfosFactory(data) {
+function photographerInfosFactory(data) {
     /* Récupère les informations du photographe
     La fonction attend un argument non optionnel -> data{} */
-    const photographer_id = FetchID()
+    const photographer_id = fetchID()
     const type = "price"
     let data_photographer = []
     for (let element in data) {
@@ -190,19 +190,19 @@ function PhotographerInfosFactory(data) {
                 price: data[element]["price"],
                 portrait: data[element]["portrait"],
             }
-            AddPhotographerInfos(data_photographer)
+            addPhotographerInfos(data_photographer)
         } else {
             continue
         }
     }
-    AddPhotographerNameOnContactModal(data_photographer["name"])
-    AddPhotographerInfosRecap(type, data_photographer["price"])
+    addPhotographerNameOnContactModal(data_photographer["name"])
+    addPhotographerInfosRecap(type, data_photographer["price"])
 }
 
-function MediasFactory(data, sort_option) {
+function mediasFactory(data, sort_option) {
     /* Récupérer les médias du photographe
     La fonction attend deux arguments non optionnel -> data{} sort_option(String) */
-    const photographer_id = FetchID()
+    const photographer_id = fetchID()
     const type = "likes"
     let likes = 0
     let medias_list = []
@@ -215,7 +215,7 @@ function MediasFactory(data, sort_option) {
             continue
         }
     }
-    AddPhotographerInfosRecap(type, likes)
+    addPhotographerInfosRecap(type, likes)
     sortMedias(medias_list, sort_option)
 }
 
@@ -249,10 +249,10 @@ function sortMedias(medias_list, sort_option) {
             }
         })
     }
-    AddMedias(medias_list)
+    addMedias(medias_list)
 }
 
-function AddPhotographerInfos(data_photographer){
+function addPhotographerInfos(data_photographer){
     /* Ajoute les informations du photographe
     La fonction attend un argument non optionnel -> data_photographer{} */
     const photographerInfosSection = document.getElementById("photographer_infos_section")
@@ -280,10 +280,10 @@ function AddPhotographerInfos(data_photographer){
     photographerInfosSection.insertAdjacentHTML("afterbegin", photographer_infos_html)
 }
 
-function AddMedias(data_medias) {
+function addMedias(data_medias) {
     /* Ajoute les médias du photographes
     La fonction attend un argument non optionnel -> data_medias{} */
-    RemoveMedias()
+    removeMedias()
     const mediasSection = document.getElementById("medias_container")
     let name = ""
     let media_tag_html = ""
@@ -311,17 +311,17 @@ function AddMedias(data_medias) {
         </div>`
     }
     mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
-    FetchEvents()
-    FetchLikes()
+    fetchEvents()
+    fetchLikes()
 }
 
-function AddPhotographerInfosRecap(type, number) {
+function addPhotographerInfosRecap(type, number) {
     /* Ajoutes les informations dans la partie récap de la page
     La fonction attend deux arguments non optionnel ->  type(String) et number(Numbner) */
     const infosRecap = document.querySelector(".photographer_infos_recap")
     let html = ""
     if (type == "likes") {
-        RemoveLikes()
+        removeLikes()
         html = `<p id="likes">${number} <i class="fas fa-heart"></i></p>`
     }
     else if (type == "price") {
@@ -330,7 +330,7 @@ function AddPhotographerInfosRecap(type, number) {
     infosRecap.insertAdjacentHTML("afterbegin", html)
 }
 
-function AddLikes(likes_order) {
+function addLikes(likes_order) {
     /* Ajoute un like au média et au total de like
     La fonction attend un argument non optionnel ->  likes_order(Number) */
 
@@ -346,17 +346,17 @@ function AddLikes(likes_order) {
     totalLikes.insertAdjacentHTML("beforeend", '<i class="fas fa-heart" aria-hidden="true"></i>')
 }
 
-function AddLightboxModal(data) {
+function addLightboxModal(data) {
     const lightboxModal = document.querySelector(".lightbox_modal")
     /* Ajoute le contenue de la lightbox modal
     La fonction attend un argument non optionnel -> data */
-    let type = ReturnMediaType(data.innerHTML)
+    let type = returnMediaType(data.innerHTML)
     let media_html = data.innerHTML
     if (type == "video") {
-        let link = ReturnMediaLink(data.innerHTML)
+        let link = returnMediaLink(data.innerHTML)
         media_html = `<video controls><source src="${link}.mp4" type="video/mp4"></video>`
     }
-    let media_title = ReturnAlt(data.innerHTML)
+    let media_title = returnAlt(data.innerHTML)
     let modal_html = `<div class="content_modal" aria-label="image closeup view">
     <div class="element">
     <a class="left_switch"><i class="fas fa-chevron-left"></i></a>
@@ -367,25 +367,25 @@ function AddLightboxModal(data) {
     <button class="close_lightbox_modal"><i class="fas fa-times"></i></button>
     </div>`
     lightboxModal.insertAdjacentHTML("beforeend", modal_html)
-    OpenLightboxModal()
+    openLightboxModal()
 }
 
-function AddPhotographerNameOnContactModal(photographer_name) {
+function addPhotographerNameOnContactModal(photographer_name) {
     /* Ajoute le nom du photographe dans la modal de contact
     La fonction attend un argument non optionnel -> photographer_name(String) */
     const contactModalTitle = document.querySelector(".contact_modal_title")
     contactModalTitle.insertAdjacentHTML("beforeend", `<br>${photographer_name}`)
 }
 
-function OpenContactModal() {
+function openContactModal() {
     /* Ouvre la modal de contact */
-    const openContactModal = document.querySelector(".contact_modal")
-    openContactModal.style.display = "flex"
-    FetchEvents()
-    FocusContactModal()
+    const contactModal = document.querySelector(".contact_modal")
+    contactModal.style.display = "flex"
+    fetchEvents()
+    focusContactModal()
 }
 
-function FocusContactModal() {
+function focusContactModal() {
     /* Garde le focus sur les éléments de la modal de contact */
     let focusableSelector = "span, input"
     let focusables = []
@@ -401,76 +401,75 @@ function FocusContactModal() {
             focusables[focusable_index].focus()
         }
         if (e.key == "Escape" || e.key == "Esc") {
-            CloseContactModal()
-            focusables = []
+            closeContactModal()
         }
     })
 }
 
-function OpenLightboxModal() {
+function openLightboxModal() {
     /* Ouvre la lightbox modal */
     const lightboxModal = document.querySelector(".lightbox_modal")
     lightboxModal.style.display = "block";
-    FetchEvents()
+    fetchEvents()
 }
 
-function LeftSwitch(media_order) {
+function leftSwitch(media_order) {
     /* Affiche le média précedent
     La fonction attend un argument non optionnel -> media_order(Number) */
     const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
-    const leftSwitch  = document.querySelector(".left_switch")
-    leftSwitch.addEventListener("click", function() {
-        RemoveLightboxModal()
-        AddLightboxModal(openlightboxModal[media_order])
+    const leftS  = document.querySelector(".left_switch")
+    leftS.addEventListener("click", function() {
+        removeLightboxModal()
+        addLightboxModal(openlightboxModal[media_order])
         if (media_order == 0) {
-            LeftSwitch(openlightboxModal.length -1)
-            RightSwitch(media_order +1)
+            leftSwitch(openlightboxModal.length -1)
+            rightSwitch(media_order +1)
         }
         else if (media_order == openlightboxModal.length -1) {
-            LeftSwitch(media_order -1)
-            RightSwitch(0)
+            leftSwitch(media_order -1)
+            rightSwitch(0)
         } else {
-            LeftSwitch(media_order -1)
-            RightSwitch(media_order +1)
+            leftSwitch(media_order -1)
+            rightSwitch(media_order +1)
         }
     })
 }
 
-function RightSwitch(media_order) {
+function rightSwitch(media_order) {
     /* Affiche le média suivant
     La fonction attend un argument non optionnel -> media_order(Number) */
     const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
-    const rightSwitch = document.querySelector(".right_switch")
-    rightSwitch.addEventListener("click", function() {
-        RemoveLightboxModal()
-        AddLightboxModal(openlightboxModal[media_order])
+    const rightS = document.querySelector(".right_switch")
+    rightS.addEventListener("click", function() {
+        removeLightboxModal()
+        addLightboxModal(openlightboxModal[media_order])
         if (media_order == 0) {
-            LeftSwitch(openlightboxModal.length -1)
-            RightSwitch(media_order +1)
+            leftSwitch(openlightboxModal.length -1)
+            rightSwitch(media_order +1)
         }
         else if (media_order == openlightboxModal.length -1) {
-            LeftSwitch(media_order -1)
-            RightSwitch(0)
+            leftSwitch(media_order -1)
+            rightSwitch(0)
         } else {
-            LeftSwitch(media_order -1)
-            RightSwitch(media_order +1)
+            leftSwitch(media_order -1)
+            rightSwitch(media_order +1)
         }
     })
 }
 
-function CloseContactModal() {
+function closeContactModal() {
     /* Ferme la modale de contact */
-    const openContactModal = document.querySelector(".contact_modal")
-    openContactModal.style.display = "none"
+    const contactModal = document.querySelector(".contact_modal")
+    contactModal.style.display = "none"
 }
 
-function CloseLightboxModal() {
+function closeLightboxModal() {
     /* Ferme la lightbox modal */
     const lightboxModal = document.querySelector(".lightbox_modal")
     lightboxModal.style.display = "none";
 }
 
-function ReturnAlt(data) {
+function returnAlt(data) {
     /* Retourne l'attribut alt
     La fonction attend un argument non optionnel -> data(String) */
     const regex_alt = RegExp(/alt="([\sa-zA-Z0-9]{0,})"/)
@@ -478,7 +477,7 @@ function ReturnAlt(data) {
     return alt
 }
 
-function ReturnMediaType(data) {
+function returnMediaType(data) {
     /* Retourne le type d'un média
     La fonction attend un argument non optionnel -> data(String) */
     const regex_class = RegExp(/class="([_-\sa-zA-Z0-9]*)"/)
@@ -486,7 +485,7 @@ function ReturnMediaType(data) {
     return type
 }
 
-function ReturnMediaLink(data) {
+function returnMediaLink(data) {
     /* Retourne le link d'un média
     La fonction attend un argument non optionnel -> data(String) */
     const regex_link = RegExp(/src="([/_-\sa-zA-Z0-9]*).png"/)
