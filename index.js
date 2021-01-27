@@ -2,7 +2,7 @@ FetchEvents()
 let type = FetchTag()
 FetchPhotographersData(type)
 
-//TODO: add commentaire
+// Écoute les pressions du clavier
 document.addEventListener("keyup", function(e) {
     if (e.key == "Enter") {
         e.target.click()

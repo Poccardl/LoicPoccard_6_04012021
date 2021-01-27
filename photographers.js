@@ -385,8 +385,8 @@ function OpenContactModal() {
     FocusContactModal()
 }
 
-//TODO: add commentaire
 function FocusContactModal() {
+    /* Garde le focus sur les éléments de la modal de contact */
     let focusableSelector = "span, input"
     let focusables = []
     focusables = Array.from(document.querySelectorAll(`.contact_modal ${focusableSelector}`))
