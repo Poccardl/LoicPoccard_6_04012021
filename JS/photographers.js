@@ -299,7 +299,7 @@ function AddMedias(data_medias) {
             const video_name = regex_name.exec(name)[1]
             media_tag_html = `<img class="video" src="data/media_${data_medias[element]["photographerId"]}/${video_name}.png" alt="${data_medias[element]["description"]}" tabindex="0">`
         }
-        medias_card_html = `<div class="card">
+        medias_card_html += `<div class="card">
         <a class="open_lightbox_modal">${media_tag_html}</a>
         <div class="content">
         <p>${data_medias[element]["description"]}</p>
@@ -309,8 +309,8 @@ function AddMedias(data_medias) {
         </p>
         </div>
         </div>`
-        mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
     }
+    mediasSection.insertAdjacentHTML("beforeend", medias_card_html)
     FetchEvents()
     FetchLikes()
 }
