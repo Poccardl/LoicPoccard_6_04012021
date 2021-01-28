@@ -80,8 +80,19 @@ function fetchEvents() {
     const openlightboxModal = document.querySelectorAll(".open_lightbox_modal")
     const closelightboxModal = document.querySelector(".close_lightbox_modal")
 
+    let angleUp = document.querySelector(".fa-angle-up")
+    let angleDown = document.querySelector(".fa-angle-down")
+
     // Events
     contact.addEventListener("click", openContactModal)
+    sortMedias.addEventListener("click", function () {
+        angleUp.style.display = "contents"
+        angleDown.style.display = "none"
+    })
+    sortMedias.addEventListener("blur", function () {
+        angleUp.style.display = "none"
+        angleDown.style.display = "contents"
+    })
     sortMedias.addEventListener("change", function () {
         fetchData(sortMedias.value, "media")
     })

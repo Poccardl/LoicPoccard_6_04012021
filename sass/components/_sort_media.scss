@@ -2,11 +2,11 @@
     display: none;
     @include laptop {
         display: block;
-        //width: 100%;
         margin: 20px;
         select {
+            cursor: pointer;
             padding: 15px 25px 15px 25px;
-            border-radius: 5px;
+            border-radius: 5px 0px 0px 5px;
             background-color: $color-primary;
             color: white;
             border: 0px;
@@ -15,6 +15,20 @@
             -ms-appearance: none;
             -o-appearance: none;
             appearance: none;
+        }
+        .select_arrow {
+            cursor: pointer;
+            color: white;
+            position: absolute;
+            background-color: $color-primary;
+            padding: 12px 25px 15px 0px;
+            border-radius: 0px 5px 5px 0px;
+            .fa-angle-up {
+                display: none;
+            }
+            .fa-angle-down {
+                display: contents;
+            }
         }
     }
 
